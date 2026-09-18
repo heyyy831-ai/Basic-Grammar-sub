@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英会話のための基本英文法完全マスター サブスティチューションドリル</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f3f4f6;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        .progress-bar-active {
+            animation: progress-shrink linear forwards;
+        }
+        @keyframes progress-shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <div class="flex-grow max-w-3xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+        
+        <header class="text-center">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-900 mb-1">サブスティチューションドリル</h1>
+            <p class="text-sm sm:text-base text-gray-600">英会話のための基本英文法完全マスター</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="lesson-select" class="block text-xs font-semibold text-gray-700 mb-1">レッスン</label>
+                    <select id="lesson-select" class="block w-full rounded-md border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border outline-none">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+                <div>
+                    <label for="section-select" class="block text-xs font-semibold text-gray-700 mb-1">セクション</label>
+                    <select id="section-select" class="block w-full rounded-md border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border outline-none">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 pt-4 border-t border-gray-100">
+                <div>
+                    <label for="voice-select" class="block text-xs font-semibold text-gray-700 mb-1">音声 (英語)</label>
+                    <select id="voice-select" class="block w-full rounded-md border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border outline-none">
+                        <option value="">読込中...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="speed-select" class="block text-xs font-semibold text-gray-700 mb-1">読み上げ速度</label>
+                    <select id="speed-select" class="block w-full rounded-md border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border outline-none">
+                        <option value="0.5">0.5倍</option>
+                        <option value="0.6">0.6倍</option>
+                        <option value="0.7">0.7倍</option>
+                        <option value="0.8">0.8倍</option>
+                        <option value="0.9">0.9倍</option>
+                        <option value="1.0" selected>1.0倍 (標準)</option>
+                        <option value="1.1">1.1倍</option>
+                        <option value="1.2">1.2倍</option>
+                        <option value="1.3">1.3倍</option>
+                        <option value="1.4">1.4倍</option>
+                        <option value="1.5">1.5倍</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-2">再生モード</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="play-mode" value="manual" class="form-radio text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">手動</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="play-mode" value="auto" checked class="form-radio text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">自動継続</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="wait-time-container">
+                    <label for="wait-time-select" class="block text-xs font-semibold text-gray-700 mb-1">自動継続時の待機時間</label>
+                    <select id="wait-time-select" class="block w-full rounded-md border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-blue-500 text-sm p-2 border outline-none">
+                        <option value="3">3秒</option>
+                        <option value="4">4秒</option>
+                        <option value="5" selected>5秒</option>
+                        <option value="6">6秒</option>
+                        <option value="7">7秒</option>
+                        <option value="8">8秒</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6 sm:p-10 flex-grow flex flex-col justify-center relative overflow-hidden min-h-[250px]">
+            <div id="timer-bar-container" class="absolute top-0 left-0 w-full h-1 bg-gray-100 hidden">
+                <div id="timer-bar" class="h-full bg-blue-500 w-full"></div>
+            </div>
+
+            <div class="absolute top-4 right-4 text-xs font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-full" id="progress-text">
+                0 / 0
+            </div>
+
+            <div id="display-content" class="text-center w-full flex flex-col items-center justify-center space-y-6">
+                <p class="text-gray-400 text-sm">レッスンとセクションを選択して再生を開始してください。</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-wrap justify-center items-center gap-4">
+            <button id="prev-btn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-40 flex items-center justify-center flex-1 sm:flex-none" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                戻る
+            </button>
+            
+            <button id="play-pause-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center flex-[2] sm:flex-none">
+                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg id="stop-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                </svg>
+                <span id="play-text">再生開始</span>
+            </button>
+
+            <button id="next-btn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-40 flex items-center justify-center flex-1 sm:flex-none" disabled>
+                次へ
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Consolidated Full Dataset (Lesson 1-1 to 3-6)
+        const lessonData = {
+            "Lesson 1-1": {
+                "A": [
+                    { en: "He is a student here.", cue: "(I)", ja: "彼はここの生徒です。" },
+                    { en: "I'm a student here.", cue: "(We)", ja: "私はここの生徒です。" },
+                    { en: "We're students here.", cue: "(Yankees fans)", ja: "私たちはここの生徒です。" },
+                    { en: "We're Yankees fans.", cue: "(He)", ja: "私たちはヤンキースのファンです。" },
+                    { en: "He is a Yankees fan.", cue: "(Angels)", ja: "彼はヤンキースのファンです。" },
+                    { en: "He is an Angels fan.", cue: "(They)", ja: "彼はエンジェルスのファンです。" },
+                    { en: "They are Angels fans.", cue: "", ja: "彼らはエンジェルスのファンです。" }
+                ],
+                "B": [
+                    { en: "They are Angels fans.", cue: "(negative)", ja: "彼らはエンジェルスのファンです。" },
+                    { en: "They aren't Angels fans.", cue: "(She)", ja: "彼らはエンジェルスのファンではありません。" },
+                    { en: "She isn't an Angels fan.", cue: "(I)", ja: "彼女はエンジェルスのファンではありません。" },
+                    { en: "I'm not an Angels fan.", cue: "(Reds)", ja: "私はエンジェルスのファンではありません。" },
+                    { en: "I'm not a Reds fan.", cue: "(You, +right)", ja: "私はレッズのファンではありません。" },
+                    { en: "You aren't a Reds fan, right?", cue: "(You (plural))", ja: "あなたはレッズのファンではありませんよね?" },
+                    { en: "You aren't Reds fans, right?", cue: "", ja: "あなたたちはレッズファンではありませんよね?" }
+                ],
+                "C": [
+                    { en: "You are a student here, right?", cue: "(You (plural))", ja: "あなたはここの生徒ですよね?" },
+                    { en: "You are students here, right?", cue: "(I, -right)", ja: "あなたたちはここの生徒ですよね?" },
+                    { en: "I'm a student here.", cue: "(They)", ja: "私はここの生徒です。" },
+                    { en: "They are students here.", cue: "(negative)", ja: "彼らはここの生徒です。" },
+                    { en: "They aren't students here.", cue: "(tired)", ja: "彼らはここの生徒ではありません。" },
+                    { en: "They aren't tired.", cue: "", ja: "彼らは疲れていません。" }
+                ],
+                "D": [
+                    { en: "They are at school.", cue: "(in the room)", ja: "彼らは学校にいます。" },
+                    { en: "They are in the room.", cue: "(question)", ja: "彼らはその部屋にいます。" },
+                    { en: "Are they in the room?", cue: "(She)", ja: "彼らはその部屋にいますか?" },
+                    { en: "Is she in the room?", cue: "(hungry)", ja: "彼女はその部屋にいますか?" },
+                    { en: "Is she hungry?", cue: "(You)", ja: "彼女はおなかが空いていますか?" },
+                    { en: "Are you hungry?", cue: "(positive, +right)", ja: "あなた、おなかは空いていますか?" },
+                    { en: "You are hungry, right?", cue: "(He)", ja: "あなた、おなかが空いていますよね?" },
+                    { en: "He is hungry, right?", cue: "(negative)", ja: "彼はおなかが空いていますよね?" },
+                    { en: "He isn't hungry, right?", cue: "", ja: "彼、おなかは空いていませんよね?" }
+                ],
+                "E": [
+                    { en: "I'm busy.", cue: "(We)", ja: "私は忙しいです。" },
+                    { en: "We're busy.", cue: "(tired)", ja: "私たちは忙しいです。" },
+                    { en: "We're tired.", cue: "(She)", ja: "私たちは疲れています。" },
+                    { en: "She is tired.", cue: "(question)", ja: "彼女は疲れています。" },
+                    { en: "Is she tired?", cue: "(kind)", ja: "彼女は疲れていますか?" },
+                    { en: "Is she kind?", cue: "(positive)", ja: "彼女は親切ですか?" },
+                    { en: "She is kind.", cue: "(You)", ja: "彼女は親切です。" },
+                    { en: "You're kind.", cue: "(They)", ja: "あなた、親切ですね。" },
+                    { en: "They are kind.", cue: "", ja: "彼らは親切ですね。" }
+                ],
+                "F": [
+                    { en: "The baby is hungry.", cue: "(negative)", ja: "その赤ちゃんはおなかが空いています。" },
+                    { en: "The baby isn't hungry.", cue: "(We)", ja: "その赤ちゃんはおなかが空いていません。" },
+                    { en: "We aren't hungry.", cue: "(She)", ja: "私たちはおなかが空いていません。" },
+                    { en: "She isn't hungry.", cue: "(first)", ja: "彼女はおなかが空いていません。" },
+                    { en: "She isn't first.", cue: "(I)", ja: "彼女が最初ではありません。" },
+                    { en: "I'm not first.", cue: "(positive)", ja: "私が最初ではありません。" },
+                    { en: "I'm first.", cue: "(question)", ja: "私が最初です。" },
+                    { en: "Am I first?", cue: "", ja: "私が最初ですか?" }
+                ]
+            },
+            "Lesson 1-2": {
+                "A": [
+                    { en: "This is Ken.", cue: "(That)", ja: "こちらはケンです。" },
+                    { en: "That is Ken.", cue: "(Mt. Fuji)", ja: "あちらはケンです。" },
+                    { en: "That is Mt. Fuji.", cue: "(question)", ja: "あれは富士山です。" },
+                    { en: "Is that Mt. Fuji?", cue: "(mushrooms)", ja: "あれは富士山ですか?" },
+                    { en: "Are those mushrooms?", cue: "(these)", ja: "あれは複数 キノコですか?" },
+                    { en: "Are these mushrooms?", cue: "(negative)", ja: "これは複数 キノコですか?" },
+                    { en: "These aren't mushrooms.", cue: "(singular)", ja: "これは複数 キノコではありません。" },
+                    { en: "This isn't a mushroom.", cue: "(expensive)", ja: "これは単数 キノコではありません。" },
+                    { en: "This isn't expensive.", cue: "", ja: "これは高くありません。" }
+                ],
+                "B": [
+                    { en: "This isn't expensive.", cue: "(those)", ja: "これは高くありません。" },
+                    { en: "Those aren't expensive.", cue: "(positive)", ja: "それらは高くありません。" },
+                    { en: "Those are expensive.", cue: "(question)", ja: "それらは高いです。" },
+                    { en: "Are those expensive?", cue: "(in the kitchen)", ja: "それらは高いですか?" },
+                    { en: "Are those in the kitchen?", cue: "(that)", ja: "それらはキッチンにありますか?" },
+                    { en: "Is that in the kitchen?", cue: "(Ms. Smith)", ja: "それはキッチンにありますか?" },
+                    { en: "Is that Ms. Smith?", cue: "", ja: "あちらはスミスさんですか?" }
+                ],
+                "C": [
+                    { en: "That is my school.", cue: "(their)", ja: "あれは私の学校です。" },
+                    { en: "That is their school.", cue: "(question)", ja: "あれは彼らの学校です。" },
+                    { en: "Is that their school?", cue: "(your station)", ja: "あれは彼らの学校ですか?" },
+                    { en: "Is that your station?", cue: "(positive, her bike)", ja: "あれはあなたの駅ですか?" },
+                    { en: "That is her bike.", cue: "(negative, This)", ja: "あれは彼女の自転車です。" },
+                    { en: "This isn't her bike.", cue: "(Those, glasses)", ja: "これは彼女の自転車ではありません。" },
+                    { en: "Those aren't her glasses.", cue: "", ja: "それは彼女の眼鏡ではありません。" }
+                ],
+                "D": [
+                    { en: "Your class is small, right?", cue: "(their classes)", ja: "あなたのクラスは小さいですよね?" },
+                    { en: "Their classes are small, right?", cue: "(dogs, -right)", ja: "彼らのクラスは小さいですよね?" },
+                    { en: "Their dogs are small.", cue: "(children, cute)", ja: "彼らの犬は小さいです。" },
+                    { en: "Their children are cute.", cue: "(Their car, cool)", ja: "彼らの子供たちはかわいいです。" },
+                    { en: "Their car is cool.", cue: "(question, expensive)", ja: "彼らの車は格好いいです。" },
+                    { en: "Is their car expensive?", cue: "", ja: "彼らの車は高いですか?" }
+                ],
+                "E": [
+                    { en: "This is clean water.", cue: "(question)", ja: "これはきれいな水です。" },
+                    { en: "Is this clean water?", cue: "(a new camera)", ja: "これはきれいな水ですか?" },
+                    { en: "Is this a new camera?", cue: "(plural)", ja: "これは新しいカメラですか?" },
+                    { en: "Are these new cameras?", cue: "(those, jackets)", ja: "これらは新しいカメラですか?" },
+                    { en: "Are those new jackets?", cue: "(positive, wonderful books)", ja: "それらは新しいジャケットですか?" },
+                    { en: "Those are wonderful books.", cue: "(This, a nice restaurant)", ja: "それらは素晴らしい本です。" },
+                    { en: "This is a nice restaurant.", cue: "(negative)", ja: "これは良いレストランです。" },
+                    { en: "This isn't a nice restaurant.", cue: "", ja: "これは良いレストランではありません。" }
+                ],
+                "F": [
+                    { en: "This fruit is sweet.", cue: "(grapes)", ja: "このフルーツは甘いです。" },
+                    { en: "These grapes are sweet.", cue: "(from Yamanashi)", ja: "このブドウは甘いです。" },
+                    { en: "These grapes are from Yamanashi.", cue: "(question)", ja: "このブドウは山梨県産です。" },
+                    { en: "Are these grapes from Yamanashi?", cue: "(these jobs, difficult)", ja: "このブドウは山梨県産ですか?" },
+                    { en: "Are these jobs difficult?", cue: "(negative)", ja: "これらの仕事は難しいですか?" },
+                    { en: "These jobs aren't difficult.", cue: "(books, expensive)", ja: "これらの仕事は難しくありません。" },
+                    { en: "These books aren't expensive.", cue: "(This)", ja: "これらの本は高くありません。" },
+                    { en: "This book isn't expensive.", cue: "", ja: "この本は高くありません。" }
+                ]
+            },
+            "Lesson 1-3": {
+                "A": [
+                    { en: "I eat lunch at home.", cue: "(She)", ja: "私は家で昼食を食べます。" },
+                    { en: "She eats lunch at home.", cue: "(negative, dinner)", ja: "彼女は家で昼食を食べます。" },
+                    { en: "She doesn't eat dinner at home.", cue: "(question)", ja: "彼女は家で夕食を食べません。" },
+                    { en: "Does she eat dinner at home?", cue: "(they)", ja: "彼女は家で夕食を食べますか?" },
+                    { en: "Do they eat dinner at home?", cue: "(have)", ja: "彼らは家で夕食を食べますか?" },
+                    { en: "Do they have dinner at home?", cue: "(he)", ja: "彼らは家で夕食を食べますか?" },
+                    { en: "Does he have dinner at home?", cue: "", ja: "彼は家で夕食を食べますか?" }
+                ],
+                "B": [
+                    { en: "We walk to school.", cue: "(He)", ja: "私たちは歩いて学校に行きます。" },
+                    { en: "He walks to school.", cue: "(question)", ja: "彼は歩いて学校に行きます。" },
+                    { en: "Does he walk to school?", cue: "(negative)", ja: "彼は歩いて学校に行きますか?" },
+                    { en: "He doesn't walk to school.", cue: "(go, by bus)", ja: "彼は歩いて学校に行きません。" },
+                    { en: "He doesn't go to school by bus.", cue: "(positive, live in New York)", ja: "彼はバスで学校に行きません。" },
+                    { en: "He lives in New York.", cue: "(question, they)", ja: "彼はニューヨークに住んでいます。" },
+                    { en: "Do they live in New York?", cue: "", ja: "彼らはニューヨークに住んでいますか?" }
+                ],
+                "C": [
+                    { en: "We have time for this.", cue: "(question)", ja: "私たちにはこれに割く時間があります。" },
+                    { en: "Do we have time for this?", cue: "(she)", ja: "私たちにはこれに割く時間がありますか?" },
+                    { en: "Does she have time for this?", cue: "(watch TV)", ja: "彼女にはこれに割く時間がありますか?" },
+                    { en: "Does she watch TV?", cue: "(you)", ja: "彼女はテレビを見ますか?" },
+                    { en: "Do you watch TV?", cue: "(study English at home)", ja: "あなたはテレビを見ますか?" },
+                    { en: "Do you study English at home?", cue: "(positive, they)", ja: "あなたは家で英語を勉強しますか?" },
+                    { en: "They study English at home.", cue: "(Tom)", ja: "彼らは家で英語を勉強します。" },
+                    { en: "Tom studies English at home.", cue: "(negative, Sally)", ja: "トムは家で英語を勉強します。" },
+                    { en: "Sally doesn't study English at home.", cue: "", ja: "サリーは家では英語を勉強しません。" }
+                ],
+                "D": [
+                    { en: "Use my PC.", cue: "(negative)", ja: "私のパソコンを使って。" },
+                    { en: "Don't use my PC.", cue: "(open the window)", ja: "私のパソコンを使わないで。" },
+                    { en: "Don't open the window.", cue: "(eat the fruit)", ja: "窓を開けないで。" },
+                    { en: "Don't eat the fruit.", cue: "(positive)", ja: "そのフルーツを食べないで。" },
+                    { en: "Eat the fruit.", cue: "(here)", ja: "そのフルーツを食べて。" },
+                    { en: "Eat here.", cue: "", ja: "ここで食べて。" }
+                ],
+                "E": [
+                    { en: "Be careful.", cue: "(cheerful)", ja: "気をつけて。" },
+                    { en: "Be cheerful.", cue: "(kind to children)", ja: "陽気にしてね。" },
+                    { en: "Be kind to children.", cue: "(negative, selfish)", ja: "子供たちに優しくして。" },
+                    { en: "Don't be selfish.", cue: "(nervous)", ja: "自己中心的ではだめ。" },
+                    { en: "Don't be nervous.", cue: "(shy)", ja: "緊張しないで。" },
+                    { en: "Don't be shy.", cue: "", ja: "恥ずかしがらないで。" }
+                ],
+                "F": [
+                    { en: "I live in a house.", cue: "(apartment)", ja: "私は一軒家に住んでいます。" },
+                    { en: "I live in an apartment.", cue: "(the apartment)", ja: "私はアパートに住んでいます。" },
+                    { en: "I live in the apartment.", cue: "(that apartment)", ja: "私は例のアパートに住んでいます。" },
+                    { en: "I live in that apartment.", cue: "(use a PC)", ja: "私はあのアパートに住んでいます。" },
+                    { en: "I use a PC.", cue: "(the PC)", ja: "私はパソコンを使っています。" },
+                    { en: "I use the PC.", cue: "(that)", ja: "私は例のパソコンを使っています。" },
+                    { en: "I use that PC.", cue: "(her)", ja: "私はあのパソコンを使っています。" },
+                    { en: "I use her PC.", cue: "", ja: "私は彼女のパソコンを使っています。" }
+                ]
+            },
+            "Lesson 1-4": {
+                "A": [
+                    { en: "Apples are her favorite fruit.", cue: "(question)", ja: "リンゴは彼女の好きな果物です。" },
+                    { en: "Are apples her favorite fruit?", cue: "(carrots, vegetable)", ja: "リンゴは彼女の好きな果物ですか?" },
+                    { en: "Are carrots her favorite vegetable?", cue: "(spinach)", ja: "ニンジンは彼女の好きな野菜ですか?" },
+                    { en: "Is spinach her favorite vegetable?", cue: "(cucumber, your)", ja: "ホウレンソウは彼女の好きな野菜ですか?" },
+                    { en: "Is cucumber your favorite vegetable?", cue: "(lettuce)", ja: "キュウリはあなたの好きな野菜ですか?" },
+                    { en: "Is lettuce your favorite vegetable?", cue: "(onions)", ja: "レタスはあなたの好きな野菜ですか?" },
+                    { en: "Are onions your favorite vegetable?", cue: "", ja: "タマネギはあなたの好きな野菜ですか?" }
+                ],
+                "B": [
+                    { en: "I wear skirts.", cue: "(dresses)", ja: "私はスカートをはきます。" },
+                    { en: "I wear dresses.", cue: "(a suit, +on Sundays)", ja: "私はドレスを着ます。" },
+                    { en: "I wear a suit on Sundays.", cue: "(the suit)", ja: "私は日曜日にスーツを着ます。" },
+                    { en: "I wear the suit on Sundays.", cue: "(that suit)", ja: "私は日曜日に例のスーツを着ます。" },
+                    { en: "I wear that suit on Sundays.", cue: "(have a suit, -on Sundays)", ja: "私は日曜日にあのスーツを着ます。" },
+                    { en: "I have a suit.", cue: "(the)", ja: "私はスーツを1着持っています。" },
+                    { en: "I have the suit.", cue: "(some)", ja: "私はその例のスーツを持っています。" },
+                    { en: "I have some suits.", cue: "", ja: "私はスーツを何着か持っています。" }
+                ],
+                "C": [
+                    { en: "I have an orange in my bag.", cue: "(some)", ja: "私のかばんにオレンジが1つありますよ。" },
+                    { en: "I have some oranges in my bag.", cue: "(She, in her bag)", ja: "私のかばんにオレンジがいくつかありますよ。" },
+                    { en: "She has some oranges in her bag.", cue: "(pets, -her bag)", ja: "彼女はかばんにオレンジをいくつか入れていますよ。" },
+                    { en: "She has some pets.", cue: "(negative)", ja: "彼女は何匹かペットを飼っています。" },
+                    { en: "She doesn't have any pets.", cue: "(question)", ja: "彼女はペットを飼っていません。" },
+                    { en: "Does she have any pets?", cue: "(you)", ja: "彼女はペットを飼っていますか?" },
+                    { en: "Do you have any pets?", cue: "", ja: "あなたはペットを飼っていますか?" }
+                ],
+                "D": [
+                    { en: "He has a lot of comic books.", cue: "(some)", ja: "彼は漫画本をたくさん持っています。" },
+                    { en: "He has some comic books.", cue: "(negative)", ja: "彼は漫画本を何冊か持っています。" },
+                    { en: "He doesn't have any comic books.", cue: "(classes, today)", ja: "彼は漫画本を持っていません。" },
+                    { en: "He doesn't have any classes today.", cue: "(positive, five classes)", ja: "彼は今日、授業がありません。" },
+                    { en: "He has five classes today.", cue: "(a class)", ja: "彼は今日、5つ授業があります。" },
+                    { en: "He has a class today.", cue: "(the class)", ja: "彼は今日、1つ授業があります。" },
+                    { en: "He has the class today.", cue: "", ja: "彼は今日、その例の授業があります。" }
+                ],
+                "E": [
+                    { en: "I need some fresh air.", cue: "(money)", ja: "私には新鮮な空気が必要です。" },
+                    { en: "I need some money.", cue: "(negative)", ja: "私にはお金がいくらか必要です。" },
+                    { en: "I don't need any money.", cue: "(chairs)", ja: "私にはお金は必要ありません。" },
+                    { en: "I don't need any chairs.", cue: "(positive)", ja: "私には椅子は必要ありません。" },
+                    { en: "I need some chairs.", cue: "(he, food)", ja: "私にはいくつか椅子が必要です。" },
+                    { en: "He needs some food.", cue: "(likes, chicken)", ja: "彼には食べ物が必要です。" },
+                    { en: "He likes chicken.", cue: "(apples)", ja: "彼は鶏肉が好きです。" },
+                    { en: "He likes apples.", cue: "", ja: "彼はリンゴが好きです。" }
+                ],
+                "F": [
+                    { en: "They have a lot of fashion magazines.", cue: "(homework)", ja: "彼らはたくさんのファッション雑誌を持っています。" },
+                    { en: "They have a lot of homework.", cue: "(books)", ja: "彼らにはたくさんの宿題があります。" },
+                    { en: "They have a lot of books.", cue: "(negative)", ja: "彼らはたくさんの本を持っています。" },
+                    { en: "They don't have many books.", cue: "(question)", ja: "彼らは本をたくさんは持っていません。" },
+                    { en: "Do they have many books?", cue: "(money)", ja: "彼らは本をたくさん持っていますか?" },
+                    { en: "Do they have much money?", cue: "(negative)", ja: "彼らはたくさんのお金を持っていますか?" },
+                    { en: "They don't have much money.", cue: "", ja: "彼らはお金をたくさんは持っていません。" }
+                ],
+                "G": [
+                    { en: "Every student in this class is smart.", cue: "(All)", ja: "このクラスの全ての生徒は賢いです。" },
+                    { en: "All students in this class are smart.", cue: "(Some)", ja: "このクラスの全ての生徒は賢いです。" },
+                    { en: "Some students in this class are smart.", cue: "(Those)", ja: "このクラスの何人かの生徒は賢いです。" },
+                    { en: "Those students in this class are smart.", cue: "(Any)", ja: "このクラスのそれらの生徒は賢いです。" },
+                    { en: "Any student in this class is smart.", cue: "", ja: "このクラスのどの生徒も賢いです。" }
+                ],
+                "H": [
+                    { en: "A glass of water, please.", cue: "(cup, coffee)", ja: "水を1杯ください。" },
+                    { en: "A cup of coffee, please.", cue: "(some)", ja: "コーヒーを1杯ください。" },
+                    { en: "Some coffee, please.", cue: "(two cups)", ja: "コーヒーをいくらかください。" },
+                    { en: "Two cups of coffee, please.", cue: "(apples)", ja: "コーヒーを2杯ください。" },
+                    { en: "Two apples, please.", cue: "(jeans)", ja: "リンゴを2つください。" },
+                    { en: "Two pairs of jeans, please.", cue: "", ja: "ジーンズを2本ください。" }
+                ]
+            },
+            "Lesson 1-5": {
+                "A": [
+                    { en: "What does he do?", cue: "(you)", ja: "彼は職業は何をしているんですか?" },
+                    { en: "What do you do?", cue: "(like)", ja: "あなたは職業は何をしているんですか?" },
+                    { en: "What do you like?", cue: "(Which book)", ja: "何が好きですか?" },
+                    { en: "Which book do you like?", cue: "(Where, live)", ja: "どの本が好きですか?" },
+                    { en: "Where do you live?", cue: "(What, have)", ja: "どこに住んでいるんですか?" },
+                    { en: "What do you have?", cue: "", ja: "何を持っているんですか?" }
+                ],
+                "B": [
+                    { en: "Who speaks Chinese?", cue: "(starts, next)", ja: "中国語を話せるのはどなたですか?" },
+                    { en: "Who starts next?", cue: "(What, today)", ja: "誰が次に始めますか?" },
+                    { en: "What starts today?", cue: "(Which program)", ja: "今日何が始まりますか?" },
+                    { en: "Which program starts today?", cue: "(is, interesting)", ja: "今日はどのプログラムが始まりますか?" },
+                    { en: "Which program is interesting?", cue: "", ja: "どのプログラムが面白いですか?" }
+                ],
+                "C": [
+                    { en: "Who do you know on the team?", cue: "(like)", ja: "そのチームの誰を知っていますか?" },
+                    { en: "Who do you like on the team?", cue: "(Which, -on the team)", ja: "そのチームの誰が好きですか?" },
+                    { en: "Which do you like?", cue: "(she)", ja: "どれが好きですか?" },
+                    { en: "Which does she like?", cue: "(What, want)", ja: "彼女はどれが好きですか?" },
+                    { en: "What does she want?", cue: "(thinks, about it)", ja: "彼女は何を求めているの?" },
+                    { en: "What does she think about it?", cue: "(like, for dinner)", ja: "彼女はそれについてどう思っていますか?" },
+                    { en: "What does she like for dinner?", cue: "", ja: "彼女は夕食に何を食べたいですか?" }
+                ],
+                "D": [
+                    { en: "Sally teaches English at school.", cue: "(in Australia)", ja: "サリーは学校で英語を教えています。" },
+                    { en: "Sally teaches English in Australia.", cue: "(negative)", ja: "サリーはオーストラリアで英語を教えています。" },
+                    { en: "Sally doesn't teach English in Australia.", cue: "(They, in the US)", ja: "サリーが英語を教えているのはオーストラリアでではないです。" },
+                    { en: "They don't teach English in the US.", cue: "(positive)", ja: "彼らが英語を教えているのはアメリカでではないです。" },
+                    { en: "They teach English in the US.", cue: "(Mom and Dad, live)", ja: "彼らはアメリカで英語を教えています。" },
+                    { en: "Mom and Dad live in the US.", cue: "(The Tanakas)", ja: "母と父はアメリカに住んでいます。" },
+                    { en: "The Tanakas live in the US.", cue: "", ja: "田中さん一家はアメリカに住んでいます。" }
+                ],
+                "E": [
+                    { en: "This is wonderful information.", cue: "(car)", ja: "これは素晴らしい情報です。" },
+                    { en: "This is a wonderful car.", cue: "(music)", ja: "これは素晴らしい車です。" },
+                    { en: "This is wonderful music.", cue: "(work)", ja: "これは素晴らしい音楽です。" },
+                    { en: "This is wonderful work.", cue: "(job)", ja: "これは素晴らしい仕事です。" },
+                    { en: "This is a wonderful job.", cue: "(news)", ja: "これは素晴らしい仕事です。" },
+                    { en: "This is wonderful news.", cue: "", ja: "これは素晴らしい知らせです。" }
+                ],
+                "F": [
+                    { en: "She has a lot of homework every day.", cue: "(question)", ja: "彼女には毎日たくさんの宿題があります。" },
+                    { en: "Does she have much homework every day?", cue: "(negative, I, -every day)", ja: "彼女には毎日たくさんの宿題がありますか?" },
+                    { en: "I don't have much homework.", cue: "(any, today)", ja: "私には宿題は多くありません。" },
+                    { en: "I don't have any homework today.", cue: "(positive, some)", ja: "私には今日、宿題はありません。" },
+                    { en: "I have some homework today.", cue: "(want, advice)", ja: "私には今日、宿題があります。" },
+                    { en: "I want some advice today.", cue: "", ja: "今日、私にアドバイスをください。" }
+                ],
+                "G": [
+                    { en: "I go to work every day.", cue: "(library)", ja: "私は毎日仕事に行っています。" },
+                    { en: "I go to the library every day.", cue: "(store)", ja: "私は毎日図書館に行っています。" },
+                    { en: "I go to the store every day.", cue: "(Tokyo Station)", ja: "私は毎日買い物に行っています。" },
+                    { en: "I go to Tokyo Station every day.", cue: "(sometimes, Tokyo Skytree)", ja: "私は毎日東京駅に行っています。" },
+                    { en: "I sometimes go to the Tokyo Skytree.", cue: "(coffeeshop)", ja: "私は東京スカイツリーにときどき行きます。" },
+                    { en: "I sometimes go to the coffee shop.", cue: "(hospital)", ja: "私はカフェにときどき行きます。" },
+                    { en: "I sometimes go to the hospital.", cue: "", ja: "私は病院にときどき行きます。" }
+                ],
+                "H": [
+                    { en: "She is in the club.", cue: "(team)", ja: "彼女はその例のクラブに所属しています。" },
+                    { en: "She is on the team.", cue: "(home)", ja: "彼女はその例のチームのメンバーです。" },
+                    { en: "She is at home.", cue: "(library)", ja: "彼女は家にいます。" },
+                    { en: "She is at the library.", cue: "(school)", ja: "彼女は図書館にいます。" },
+                    { en: "She is at school.", cue: "(lives, in Osaka)", ja: "彼女は学校にいます。" },
+                    { en: "She lives in Osaka.", cue: "(by a river)", ja: "彼女は大阪に住んでいます。" },
+                    { en: "She lives by a river.", cue: "(on a farm)", ja: "彼女は農場に住んでいます。" },
+                    { en: "She lives on a farm.", cue: "(on an island)", ja: "彼女は農場に住んでいます。" },
+                    { en: "She lives on an island.", cue: "", ja: "彼女は島に住んでいます。" }
+                ]
+            },
+            "Lesson 1-6": {
+                "A": [
+                    { en: "What do you like?", cue: "(What plan)", ja: "何が好きですか?" },
+                    { en: "What plan do you like?", cue: "(Which)", ja: "どの計画が好きですか?" },
+                    { en: "Which plan do you like?", cue: "(Whose)", ja: "どちらの計画が好きですか?" },
+                    { en: "Whose plan do you like?", cue: "(paintings)", ja: "誰の計画が好きですか?" },
+                    { en: "Whose paintings do you like?", cue: "(Which painting)", ja: "誰の絵が好きですか?" },
+                    { en: "Which painting do you like?", cue: "", ja: "どちらの絵が好きですか?" }
+                ],
+                "B": [
+                    { en: "Meet me again on Monday.", cue: "(at eleven)", ja: "月曜日にまた会って。" },
+                    { en: "Meet me again at eleven.", cue: "(at night)", ja: "11時にまた会って。" },
+                    { en: "Meet me again at night.", cue: "(in the evening)", ja: "夜にまた会って。" },
+                    { en: "Meet me again in the evening.", cue: "(at noon)", ja: "夕刻にまた会って。" },
+                    { en: "Meet me again at noon.", cue: "(in the afternoon)", ja: "正午にまた会って。" },
+                    { en: "Meet me again in the afternoon.", cue: "(in April)", ja: "午後にまた会って。" },
+                    { en: "Meet me again in April.", cue: "", ja: "4月にまた会って。" }
+                ],
+                "C": [
+                    { en: "Tom is in the car.", cue: "(the train)", ja: "トムは車の中にいます。" },
+                    { en: "Tom is on the train.", cue: "(school)", ja: "トムは電車に乗っています。" },
+                    { en: "Tom is at school.", cue: "(the kitchen)", ja: "トムは学校にいます。" },
+                    { en: "Tom is in the kitchen.", cue: "(a diet)", ja: "トムはキッチンにいます。" },
+                    { en: "Tom is on a diet.", cue: "(bed)", ja: "トムはダイエット中です。" },
+                    { en: "Tom is in bed.", cue: "(question)", ja: "トムはベッドにいます。" },
+                    { en: "Is Tom in bed?", cue: "", ja: "トムはベッドに入っていますか?" }
+                ],
+                "D": [
+                    { en: "Which do you take, baths or showers?", cue: "(apples or peaches)", ja: "お風呂とシャワー、どちらを使いますか?" },
+                    { en: "Which do you take, apples or peaches?", cue: "(like)", ja: "リンゴとモモ、どちらを取りますか?" },
+                    { en: "Which do you like, apples or peaches?", cue: "(coffee or tea)", ja: "リンゴとモモ、どちらが好きですか?" },
+                    { en: "Which do you like, coffee or tea?", cue: "(this bed or that bed)", ja: "コーヒーとお茶、どちらが好きですか?" },
+                    { en: "Which do you like, this bed or that bed?", cue: "", ja: "このベッドとあのベッド、どちらが好きですか?" }
+                ]
+            },
+            "Lesson 1-7": {
+                "A": [
+                    { en: "Where do you live?", cue: "(come from)", ja: "どこに住んでいますか?" },
+                    { en: "Where do you come from?", cue: "(What time, come home)", ja: "どちらの出身ですか?" },
+                    { en: "What time do you come home?", cue: "(+usually, +from school)", ja: "何時に家に帰っているんですか?" },
+                    { en: "What time do you usually come home from school?", cue: "(How)", ja: "いつも何時に学校から帰るんですか?" },
+                    { en: "How do you usually come home from school?", cue: "", ja: "いつも学校からどうやって帰るんですか?" }
+                ],
+                "B": [
+                    { en: "When do you go there?", cue: "(What time)", ja: "いつそこへ行くんですか?" },
+                    { en: "What time do you go there?", cue: "(Why)", ja: "何時にそこへ行くんですか?" },
+                    { en: "Why do you go there?", cue: "(don't)", ja: "なぜそこへ行くんですか?" },
+                    { en: "Why don't you go there?", cue: "(ask your mother)", ja: "そこへ行ってはどうですか?" },
+                    { en: "Why don't you ask your mother?", cue: "", ja: "あなたのお母さんに聞いてはどうですか?" }
+                ],
+                "C": [
+                    { en: "They live in Korea.", cue: "(on First St.)", ja: "彼らは韓国に住んでいます。" },
+                    { en: "They live on First St.", cue: "(at 100 First St.)", ja: "彼らはファーストストリートに住んでいます。" },
+                    { en: "They live at 100 First St.", cue: "(on a farm)", ja: "彼らはファーストストリートの100番地に住んでいます。" },
+                    { en: "They live on a farm.", cue: "(on an island)", ja: "彼らは農場に住んでいます。" },
+                    { en: "They live on an island.", cue: "", ja: "彼らは島に住んでいます。" }
+                ],
+                "D": [
+                    { en: "She will come on Sunday.", cue: "(on Sunday night)", ja: "彼女は日曜日に来ます。" },
+                    { en: "She will come on Sunday night.", cue: "(at night)", ja: "彼女は日曜日の夜に来ます。" },
+                    { en: "She will come at night.", cue: "(in the morning)", ja: "彼女は夜に来ます。" },
+                    { en: "She will come in the morning.", cue: "(at eight)", ja: "彼女は朝に来ます。" },
+                    { en: "She will come at eight.", cue: "(by)", ja: "彼女は8時に来ます。" },
+                    { en: "She will come by eight.", cue: "(be here, until)", ja: "彼女は8時までに来ます。" },
+                    { en: "She will be here until eight.", cue: "", ja: "彼女は8時までここにいます。" }
+                ],
+                "E": [
+                    { en: "I'm here.", cue: "(We)", ja: "私はここにいます。" },
+                    { en: "We are here.", cue: "(He)", ja: "私たちはここにいます。" },
+                    { en: "He is here.", cue: "(His staff)", ja: "彼はここにいます。" },
+                    { en: "His staff are here.", cue: "(question)", ja: "彼のスタッフはみなここにいます。" },
+                    { en: "Are his staff here?", cue: "(negative)", ja: "彼のスタッフはみなここにいますか?" },
+                    { en: "His staff aren't here.", cue: "", ja: "彼のスタッフはここにいません。" }
+                ],
+                "F": [
+                    { en: "Let's eat it.", cue: "(the fresh fruit)", ja: "それを食べましょう。" },
+                    { en: "Let's eat the fresh fruit.", cue: "(vegetables)", ja: "その新鮮な果物を食べましょう。" },
+                    { en: "Let's eat the fresh vegetables.", cue: "(corn)", ja: "その新鮮な野菜を食べましょう。" },
+                    { en: "Let's eat the fresh corn.", cue: "(grapes)", ja: "その新鮮なトウモロコシを食べましょう。" },
+                    { en: "Let's eat the fresh grapes.", cue: "", ja: "その新鮮なブドウを食べましょう。" }
+                ],
+                "G": [
+                    { en: "Baseball and soccer are my favorite sports.", cue: "(Basketball)", ja: "野球とサッカーは私のお気に入りのスポーツです。" },
+                    { en: "Basketball is my favorite sport.", cue: "(+one of)", ja: "バスケットボールは私のお気に入りのスポーツです。" },
+                    { en: "Basketball is one of my favorite sports.", cue: "(Sushi, foods)", ja: "バスケットボールは私のお気に入りのスポーツの一つです。" },
+                    { en: "Sushi is one of my favorite foods.", cue: "(-one of)", ja: "すしは私のお気に入りの食べ物の一つです。" },
+                    { en: "Sushi is my favorite food.", cue: "(Tomatoes, vegetable)", ja: "すしは私のお気に入りの食べ物です。" },
+                    { en: "Tomatoes are my favorite vegetable.", cue: "(+one of)", ja: "トマトは私のお気に入りの野菜です。" },
+                    { en: "Tomatoes are one of my favorite vegetables.", cue: "(Oranges, fruits)", ja: "トマトは私のお気に入りの野菜の一つです。" },
+                    { en: "Oranges are one of my favorite fruits.", cue: "(-one of)", ja: "オレンジは私のお気に入りの果物の一つです。" },
+                    { en: "Oranges are my favorite fruit.", cue: "", ja: "オレンジは私のお気に入りの果物です。" }
+                ],
+                "H": [
+                    { en: "The police have the information.", cue: "(Richard)", ja: "警察はその情報を持っています。" },
+                    { en: "Richard has the information.", cue: "(question)", ja: "リチャードはその情報を持っています。" },
+                    { en: "Does Richard have the information?", cue: "(negative)", ja: "リチャードはその情報を持っていますか?" },
+                    { en: "Richard doesn't have the information.", cue: "(Richard and Susan)", ja: "リチャードはその情報を持っていません。" },
+                    { en: "Richard and Susan don't have the information.", cue: "(much baggage)", ja: "リチャードとスーザンはその情報を持っていません。" },
+                    { en: "Richard and Susan don't have much baggage.", cue: "(furniture)", ja: "リチャードとスーザンは、それほどたくさんの荷物を持っていません。" },
+                    { en: "Richard and Susan don't have much furniture.", cue: "", ja: "リチャードとスーザンは、それほどたくさんの家具を持っていません。" }
+                ]
+            },
+            "Lesson 1-8": {
+                "A": [
+                    { en: "We leave home at eight.", cue: "(by)", ja: "私たちは8時に家を出ます。" },
+                    { en: "We leave home by eight.", cue: "(before)", ja: "私たちは8時までに家を出ます。" },
+                    { en: "We leave home before eight.", cue: "(She, after)", ja: "私たちは8時前に家を出ます。" },
+                    { en: "She leaves home after eight.", cue: "(stays, until)", ja: "彼女は8時以降に家を出ます。" },
+                    { en: "She stays home until eight.", cue: "(on weekends)", ja: "彼女は8時まで家にいます。" },
+                    { en: "She stays home on weekends.", cue: "", ja: "彼女は週末は家にいます。" }
+                ]
+            },
+            "Lesson 1-9": {
+                "A": [
+                    { en: "She has a dog.", cue: "(negative)", ja: "彼女は犬を飼っています。" },
+                    { en: "She doesn't have a dog.", cue: "(question)", ja: "彼女は犬を飼っていません。" },
+                    { en: "Does she have a dog?", cue: "(have dinner alone)", ja: "彼女は犬を飼っていますか?" },
+                    { en: "Does she have dinner alone?", cue: "(coffee, -alone)", ja: "彼女は一人で夕食を食べるのですか?" },
+                    { en: "Does she have coffee?", cue: "", ja: "彼女はコーヒーを飲みますか?" }
+                ],
+                "B": [
+                    { en: "He lives in London.", cue: "(progressive, now)", ja: "彼はロンドンに住んでいます。" },
+                    { en: "He is living in London now.", cue: "(going to)", ja: "彼は今、ロンドンに住んでいます。" },
+                    { en: "He is going to London now.", cue: "(negative)", ja: "彼は今、ロンドンに向かっているところです。" },
+                    { en: "He isn't going to London now.", cue: "(question)", ja: "彼は今、ロンドンに向かっているのではありません。" },
+                    { en: "Is he going to London now?", cue: "(to London → Where)", ja: "彼は今、ロンドンに向かっているのですか?" },
+                    { en: "Where is he going now?", cue: "", ja: "彼は今、どこへ向かっているのですか?" }
+                ]
+            },
+            "Lesson 1-10": {
+                "A": [
+                    { en: "His grandparents are very kind to him.", cue: "(past)", ja: "彼の祖父母は彼にとても優しいです。" },
+                    { en: "His grandparents were very kind to him.", cue: "(grandmother)", ja: "彼の祖父母は彼にとても優しかったです。" },
+                    { en: "His grandmother was very kind to him.", cue: "(question)", ja: "彼の祖母は彼にとても優しかったです。" },
+                    { en: "Was his grandmother very kind to him?", cue: "(negative)", ja: "彼の祖母は彼にとても優しかったのですか?" },
+                    { en: "His grandmother wasn't very kind to him.", cue: "", ja: "彼の祖母は彼にあまり優しくありませんでした。" }
+                ],
+                "B": [
+                    { en: "Those are very expensive.", cue: "(past)", ja: "それらはとても高価です。" },
+                    { en: "Those were very expensive.", cue: "(negative, last year)", ja: "それらはとても高価でした。" },
+                    { en: "Those weren't very expensive last year.", cue: "(This)", ja: "それらは去年、あまり高価ではありませんでした。" },
+                    { en: "This wasn't very expensive last year.", cue: "", ja: "これは去年、あまり高価ではありませんでした。" }
+                ],
+                "C": [
+                    { en: "I'm a student here.", cue: "(past)", ja: "私はここの生徒です。" },
+                    { en: "I was a student here.", cue: "(She)", ja: "私はここの生徒でした。" },
+                    { en: "She was a student here.", cue: "(negative)", ja: "彼女はここの生徒でした。" },
+                    { en: "She wasn't a student here.", cue: "(You, +right)", ja: "彼女はここの生徒ではありませんでした。" },
+                    { en: "You weren't a student here, right?", cue: "(You (plural))", ja: "あなたはここの生徒ではありませんでしたね?" },
+                    { en: "You weren't students here, right?", cue: "(question, -right)", ja: "あなたたちはここの生徒ではありませんでしたね?" },
+                    { en: "Were you students here?", cue: "", ja: "あなたたちはここの生徒だったのですか?" }
+                ]
+            },
+            "Lesson 1-11": {
+                "A": [
+                    { en: "She bought it.", cue: "(teach)", ja: "彼女はそれを買った。" },
+                    { en: "She taught it.", cue: "(know)", ja: "彼女はそれを教えた。" },
+                    { en: "She knew it.", cue: "(eat)", ja: "彼女はそれを知っていた。" },
+                    { en: "She ate it.", cue: "(drink)", ja: "彼女はそれを食べた。" },
+                    { en: "She drank it.", cue: "(read)", ja: "彼女はそれを飲んだ。" },
+                    { en: "She read it.", cue: "(make)", ja: "彼女はそれを読んだ。" },
+                    { en: "She made it.", cue: "(like)", ja: "彼女はそれを作った。" },
+                    { en: "She liked it.", cue: "(see)", ja: "彼女はそれが好きだった。" },
+                    { en: "She saw it.", cue: "(write)", ja: "彼女はそれを見た。" },
+                    { en: "She wrote it.", cue: "(take)", ja: "彼女はそれを書いた。" },
+                    { en: "She took it.", cue: "(take)", ja: "彼女はそれを取った。" },
+                    { en: "She gave it.", cue: "(give)", ja: "彼女はそれを与えた。" },
+                    { en: "She began it.", cue: "", ja: "彼女はそれを始めた。" }
+                ],
+                "B": [
+                    { en: "She does it every day.", cue: "(past)", ja: "彼女は毎日それをしている。" },
+                    { en: "She did it every day.", cue: "(negative, -every day)", ja: "彼女は毎日それをした。" },
+                    { en: "She didn't do it.", cue: "(question)", ja: "彼女はそれをしなかった。" },
+                    { en: "Did she do it?", cue: "(have)", ja: "彼女はそれをしたの?" },
+                    { en: "Did she have it?", cue: "(buy)", ja: "彼女はそれを持っていたの?" },
+                    { en: "Did she buy it?", cue: "", ja: "彼女はそれを買ったの?" }
+                ],
+                "C": [
+                    { en: "When did you meet her?", cue: "(How)", ja: "いつ彼女に会ったの?" },
+                    { en: "How did you meet her?", cue: "(Why)", ja: "どうやって彼女に会ったの?" },
+                    { en: "Why did you meet her?", cue: "(Whom, with)", ja: "なぜ彼女に会ったの?" },
+                    { en: "Whom did you meet her with?", cue: "(Where, -with)", ja: "誰と彼女に会ったの?" },
+                    { en: "Where did you meet her?", cue: "", ja: "どこで彼女に会ったの?" }
+                ],
+                "D": [
+                    { en: "Linda watched TV almost every day.", cue: "(cooked, -TV)", ja: "リンダはほぼ毎日テレビを見た。" },
+                    { en: "Linda cooked almost every day.", cue: "(present)", ja: "リンダはほぼ毎日料理をした。" },
+                    { en: "Linda cooks almost every day.", cue: "(question)", ja: "リンダはほぼ毎日料理をしている。" },
+                    { en: "Does Linda cook almost every day?", cue: "(past)", ja: "リンダはほぼ毎日料理をしているの?" },
+                    { en: "Did Linda cook almost every day?", cue: "(Why)", ja: "リンダはほぼ毎日料理をしたの?" },
+                    { en: "Why did Linda cook almost every day?", cue: "(present)", ja: "どうしてリンダはほぼ毎日料理をしたの?" },
+                    { en: "Why does Linda cook almost every day?", cue: "", ja: "どうしてリンダはほぼ毎日料理をしているの?" }
+                ],
+                "E": [
+                    { en: "She can make cake.", cue: "(negative)", ja: "彼女はケーキを作れます。" },
+                    { en: "She can't make cake.", cue: "(question)", ja: "彼女はケーキを作れません。" },
+                    { en: "Can she make cake?", cue: "(she → Who)", ja: "彼女はケーキを作れるの?" },
+                    { en: "Who can make cake?", cue: "(When, you)", ja: "誰がケーキを作れるの?" },
+                    { en: "When can you make cake?", cue: "", ja: "あなたは、いつケーキを作れるの?" }
+                ],
+                "F": [
+                    { en: "His house is large.", cue: "(My uncle's house)", ja: "彼の家は広い。" },
+                    { en: "My uncle's house is large.", cue: "(The doctor's office)", ja: "私のおじの家は広い。" },
+                    { en: "The doctor's office is large.", cue: "(My brother's watch)", ja: "その医院は広い。" },
+                    { en: "My brother's watch is large.", cue: "(-watch)", ja: "私の兄の時計は大きい。" },
+                    { en: "My brother's is large.", cue: "(His father's car)", ja: "私の兄のものは大きい。" },
+                    { en: "His father's car is large.", cue: "(-car)", ja: "彼の父の車は大きい。" },
+                    { en: "His father's is large.", cue: "", ja: "彼の父のものは大きい。" }
+                ]
+            },
+            "Lesson 2-1": {
+                "A": [
+                    { en: "Will you come here tomorrow?", cue: "(Would)", ja: "明日ここに来る?" },
+                    { en: "Would you come here tomorrow?", cue: "(Could)", ja: "明日ここに来てもらえますか?" },
+                    { en: "Could you come here tomorrow?", cue: "(Can)", ja: "明日ここに来てもらえますか?" },
+                    { en: "Can you come here tomorrow?", cue: "(positive)", ja: "明日ここに来られる?" },
+                    { en: "You can come here tomorrow.", cue: "(negative)", ja: "明日ここに来てもいいよ。" },
+                    { en: "You can't come here tomorrow.", cue: "(He, may)", ja: "明日ここに来ることはできないよ。" },
+                    { en: "He may not come here tomorrow.", cue: "(positive, might)", ja: "彼は明日ここに来ないかもしれない。" },
+                    { en: "He might come here tomorrow.", cue: "(could)", ja: "彼は明日ひょっとしてここに来るかもしれません。" },
+                    { en: "He could come here tomorrow.", cue: "", ja: "彼は明日ひょっとしてここに来られるかもしれない。" }
+                ],
+                "B": [
+                    { en: "I will do it tonight.", cue: "(be going to)", ja: "私は今夜それをやります。" },
+                    { en: "I'm going to do it tonight.", cue: "(He)", ja: "私は今夜それをやるつもりです。" },
+                    { en: "He is going to do it tonight.", cue: "(question)", ja: "彼は今夜それをやるつもりです。" },
+                    { en: "Is he going to do it tonight?", cue: "(negative)", ja: "彼は今夜それをやるつもりですか?" },
+                    { en: "He isn't going to do it tonight.", cue: "(They)", ja: "彼に今夜それをやるつもりはありません。" },
+                    { en: "They aren't going to do it tonight.", cue: "", ja: "彼らに今夜それをやるつもりはありません。" }
+                ],
+                "C": [
+                    { en: "It will snow tomorrow.", cue: "(may)", ja: "明日、雪が降ります。" },
+                    { en: "It may snow tomorrow.", cue: "(might)", ja: "明日、雪が降るかもしれません。" },
+                    { en: "It might snow tomorrow.", cue: "(could)", ja: "明日、ひょっとして雪が降るかもしれません。" },
+                    { en: "It could snow tomorrow.", cue: "(hot)", ja: "明日、ひょっとして雪が降るかもしれません。" },
+                    { en: "It could be hot tomorrow.", cue: "(rainy)", ja: "明日、ひょっとして暑くなるかもしれません。" },
+                    { en: "It could be rainy tomorrow.", cue: "(rain)", ja: "明日はひょっとして雨かもしれません。" },
+                    { en: "It could rain tomorrow.", cue: "(be going to)", ja: "明日、ひょっとして雨が降るかもしれません。" },
+                    { en: "It is going to rain tomorrow.", cue: "(cool)", ja: "明日は雨が降りそうです。" },
+                    { en: "It is going to be cool tomorrow.", cue: "", ja: "明日は涼しくなりそうです。" }
+                ],
+                "D": [
+                    { en: "I did it by myself.", cue: "(We)", ja: "私はそれを自分でやった。" },
+                    { en: "We did it by ourselves.", cue: "(He)", ja: "私たちはそれを自分たちでやった。" },
+                    { en: "He did it by himself.", cue: "(question, She)", ja: "彼はそれを自分でやった。" },
+                    { en: "Did she do it by herself?", cue: "(negative)", ja: "彼女はそれを自分でやったんですか?" },
+                    { en: "She didn't do it by herself.", cue: "(present)", ja: "彼女はそれを自分ではやらなかった。" },
+                    { en: "She doesn't do it by herself.", cue: "", ja: "彼女はそれを自分ではやっていません。" }
+                ],
+                "E": [
+                    { en: "Tom is going to be OK.", cue: "(+and I)", ja: "トムは良くなりそうです。" },
+                    { en: "Tom and I are going to be OK.", cue: "(he, you)", ja: "私もトムも良くなりそうです。" },
+                    { en: "You and he are going to be OK.", cue: "(I, you)", ja: "あなたも彼も良くなりそうですね。" },
+                    { en: "You and I are going to be OK.", cue: "(Dad, Mom)", ja: "あなたも私も良くなりそうです。" },
+                    { en: "Mom and Dad are going to be OK.", cue: "(question, he)", ja: "母も父も良くなりそうです。" },
+                    { en: "Is he going to be OK?", cue: "(negative)", ja: "彼は良くなりそうですか?" },
+                    { en: "He isn't going to be OK.", cue: "", ja: "彼は良くなりそうもありません。" }
+                ]
+            },
+            "Lesson 2-2": {
+                "A": [
+                    { en: "Tom knows Ken, doesn't he?", cue: "(You)", ja: "トムはケンを知っていますよね?" },
+                    { en: "You know Ken, don't you?", cue: "(Mr. and Mrs. Smith)", ja: "あなたはケンを知っていますよね?" },
+                    { en: "Mr. and Mrs. Smith know Ken, don't they?", cue: "(Tom)", ja: "スミスご夫妻はケンを知っていますよね?" },
+                    { en: "Tom knows Ken, doesn't he?", cue: "", ja: "トムはケンを知っているんですよね?" }
+                ],
+                "B": [
+                    { en: "You are going to go there, aren't you?", cue: "(aren't you → right)", ja: "あなたはそこに行くつもりですよね?" },
+                    { en: "You are going to go there, right?", cue: "(no)", ja: "あなたはそこに行くつもりですよね? 正しい?" },
+                    { en: "You are going to go there, no?", cue: "(question, -no)", ja: "あなたはそこに行くつもりですよね? 違う?" },
+                    { en: "Are you going to go there?", cue: "(Would)", ja: "あなたはそこに行くつもりですか?" },
+                    { en: "Would you go there?", cue: "(Could)", ja: "そこに行っていただけますか?" },
+                    { en: "Could you go there?", cue: "(Can)", ja: "そこに行っていただけますか?" },
+                    { en: "Can you go there?", cue: "", ja: "そこに行ける?" }
+                ],
+                "C": [
+                    { en: "Should I open the window?", cue: "(call you)", ja: "窓を開けましょうか?" },
+                    { en: "Should I call you?", cue: "(help)", ja: "あなたに電話しましょうか?" },
+                    { en: "Should I help you?", cue: "(May)", ja: "お手伝いしましょうか?" },
+                    { en: "May I help you?", cue: "(can)", ja: "お手伝いしましょうか?" },
+                    { en: "Can I help you?", cue: "", ja: "お手伝いしましょうか?" }
+                ],
+                "D": [
+                    { en: "It will rain tonight.", cue: "(should)", ja: "今夜、雨が降りますよ。" },
+                    { en: "It should rain tonight.", cue: "(may, rainy)", ja: "今夜、雨が降るはずです。" },
+                    { en: "It may be rainy tonight.", cue: "(might)", ja: "今夜、雨が降るかもしれません。" },
+                    { en: "It might be rainy tonight.", cue: "(could, snow)", ja: "今夜、ひょっとして雨が降るかもしれません。" },
+                    { en: "It could snow tonight.", cue: "(be going to)", ja: "今夜、ひょっとして雪が降るかもしれません。" },
+                    { en: "It is going to snow tonight.", cue: "", ja: "今夜、雪が降りそうです。" }
+                ],
+                "E": [
+                    { en: "I must go.", cue: "(have to)", ja: "私は行かなければなりません。" },
+                    { en: "I have to go.", cue: "(should)", ja: "私は行かなければなりません。" },
+                    { en: "I should go.", cue: "(be going to)", ja: "私は行かなければなりません。" },
+                    { en: "I'm going to go.", cue: "(might)", ja: "私は行くつもりです。" },
+                    { en: "I might go.", cue: "(may)", ja: "私はひょっとして行くかもしれません。" },
+                    { en: "I may go.", cue: "", ja: "私は行くかもしれません。" }
+                ],
+                "F": [
+                    { en: "She has a car.", cue: "(has got)", ja: "彼女は車を持っています。" },
+                    { en: "She has got a car.", cue: "(question)", ja: "彼女は車を持っています。" },
+                    { en: "Has she got a car?", cue: "(negative)", ja: "彼女は車を持っていますか?" },
+                    { en: "She hasn't got a car.", cue: "(positive, have to buy)", ja: "彼女は車は持っていません。" },
+                    { en: "She has to buy a car.", cue: "(question)", ja: "彼女は車を買わなければなりません。" },
+                    { en: "Does she have to buy a car?", cue: "", ja: "彼女は車を買わなければなりませんか?" }
+                ],
+                "G": [
+                    { en: "She taught us English.", cue: "(cook, some food)", ja: "彼女は私たちに英語を教えてくれました。" },
+                    { en: "She cooked us some food.", cue: "(give)", ja: "彼女は私たちに料理を作ってくれました。" },
+                    { en: "She gave us some food.", cue: "(bring)", ja: "彼女は私たちに食べ物をくれました。" },
+                    { en: "She brought us some food.", cue: "(send)", ja: "彼女は私たちに食べ物を持ってきてくれました。" },
+                    { en: "She sent us some food.", cue: "(buy)", ja: "彼女は私たちに食べ物を送ってくれました。" },
+                    { en: "She bought us some food.", cue: "(sing, some songs)", ja: "彼女は私たちに食べ物を買ってくれました。" },
+                    { en: "She sang us some songs.", cue: "(ask, some questions)", ja: "彼女は私たちにいくつかの歌を歌ってくれました。" },
+                    { en: "She asked us some questions.", cue: "", ja: "彼女は私たちにいくつか質問しました。" }
+                ]
+            },
+            "Lesson 2-3": {
+                "A": [
+                    { en: "I want to do it right now.", cue: "(She)", ja: "今すぐそれをやりたい。" },
+                    { en: "She wants to do it right now.", cue: "(question)", ja: "彼女は今すぐそれをやりたがっている。" },
+                    { en: "Does she want to do it right now?", cue: "(negative)", ja: "彼女は今すぐそれをやりたがっているのですか?" },
+                    { en: "She doesn't want to do it right now.", cue: "(past, -right now)", ja: "彼女は今すぐにそれをやりたがってはいない。" },
+                    { en: "She didn't want to do it.", cue: "(question)", ja: "彼女はそれをやりたがらなかった。" },
+                    { en: "Did she want to do it?", cue: "", ja: "彼女はそれをやりたがったのですか?" }
+                ],
+                "B": [
+                    { en: "She was happy to hear that news.", cue: "(question)", ja: "彼女はそのニュースを聞いてうれしかった。" },
+                    { en: "Was she happy to hear that news?", cue: "(sad)", ja: "彼女はそのニュースを聞いてうれしかったのですか?" },
+                    { en: "Was she sad to hear that news?", cue: "(negative)", ja: "彼女はそのニュースを聞いて悲しかったのですか?" },
+                    { en: "She wasn't sad to hear that news.", cue: "(present, ready)", ja: "彼女はそのニュースを聞いて悲しくはなかった。" },
+                    { en: "She isn't ready to hear that news.", cue: "(do it)", ja: "彼女はそのニュースを聞く準備ができていない。" },
+                    { en: "She isn't ready to do it.", cue: "(positive, able to do it)", ja: "彼女はそれをする準備ができていない。" },
+                    { en: "She is able to do it.", cue: "(negative)", ja: "彼女はそれをすることができる。" },
+                    { en: "She isn't able to do it.", cue: "(That, able → difficult, -it)", ja: "彼女にはそれができない。" },
+                    { en: "That isn't difficult to do.", cue: "(Those, dangerous)", ja: "それをするのは難しくない。" },
+                    { en: "Those aren't dangerous to do.", cue: "", ja: "それらをするのは危険ではない。" }
+                ],
+                "C": [
+                    { en: "That mountain is difficult to climb.", cue: "(dangerous)", ja: "あの山は登るのが大変だ。" },
+                    { en: "That mountain is dangerous to climb.", cue: "(road, cross)", ja: "あの山は登るのが危険だ。" },
+                    { en: "That road is dangerous to cross.", cue: "(easy)", ja: "あの道路は横断するのが危険だ。" },
+                    { en: "That road is easy to cross.", cue: "(car, fun to drive)", ja: "あの道路は横断するのが易しい。" },
+                    { en: "That car is fun to drive.", cue: "(hard, repair)", ja: "あの車は運転するのが楽しい。" },
+                    { en: "That car is hard to repair.", cue: "", ja: "あの車は修理が大変だ。" }
+                ],
+                "D": [
+                    { en: "That must be our bus.", cue: "(should)", ja: "あれは私たちのバスに違いない(かなりの確信あり)。" },
+                    { en: "That should be our bus.", cue: "(may, train)", ja: "あれは私たちのバスに違いない。" },
+                    { en: "That may be our train.", cue: "(might, airplane)", ja: "あれは私たちの電車かもしれない。" },
+                    { en: "That might be our airplane.", cue: "(could, taxi)", ja: "あれはひょっとすると私たちの飛行機かもしれない。" },
+                    { en: "That could be our taxi.", cue: "(have to)", ja: "あれはひょっとすると私たちのタクシーかもしれない。" },
+                    { en: "That has to be our taxi.", cue: "", ja: "あれは私たちのタクシーに違いない。" }
+                ],
+                "E": [
+                    { en: "I feel good today.", cue: "(She, happy)", ja: "今日は気分がいい。" },
+                    { en: "She feels happy today.", cue: "(look)", ja: "彼女は今日、幸せを感じている。" },
+                    { en: "She looks happy today.", cue: "(seem, friendly)", ja: "彼女は今日、愛想よく見える。" },
+                    { en: "She seems friendly today.", cue: "(Mom, tired)", ja: "彼女は今日、愛想よく見える。" },
+                    { en: "Mom seems tired today.", cue: "(very nice)", ja: "母は今日、疲れているようだ。" },
+                    { en: "Mom seems very nice today.", cue: "(This meat, -today)", ja: "母は今日、とても元気そうだ。" },
+                    { en: "This meat seems very nice.", cue: "(taste, delicious)", ja: "この肉はとてもおいしそうだ。" },
+                    { en: "This meat tastes very delicious.", cue: "", ja: "この肉はとてもおいしい。" }
+                ],
+                "F": [
+                    { en: "There are many beautiful flowers there.", cue: "(question, past)", ja: "そこにはたくさんの美しい花がある。" },
+                    { en: "Were there many beautiful flowers there?", cue: "(negative)", ja: "そこにはたくさんの美しい花がありましたか?" },
+                    { en: "There weren't many beautiful flowers there.", cue: "(positive, present, buildings)", ja: "そこには美しい花があまりなかった。" },
+                    { en: "There are many beautiful buildings there.", cue: "(singular)", ja: "そこにはたくさんの美しい建物がある。" },
+                    { en: "There's a beautiful building there.", cue: "(no one)", ja: "そこにはきれいな建物がある。" },
+                    { en: "There's no one there.", cue: "(nothing to see)", ja: "そこには誰もいない。" },
+                    { en: "There's nothing to see there.", cue: "", ja: "そこには見るべきものが何もない。" }
+                ],
+                "G": [
+                    { en: "Maybe he can do it.", cue: "(In my opinion)", ja: "たぶん彼にはそれができます。" },
+                    { en: "In my opinion, he can do it.", cue: "(have to)", ja: "私の意見では、彼にはそれができます。" },
+                    { en: "In my opinion, he has to do it.", cue: "(negative)", ja: "私の意見では、彼はそれをしなければなりません。" },
+                    { en: "In my opinion, he doesn't have to do it.", cue: "(you)", ja: "私の意見では、彼はそれをしなくてもいいです。" },
+                    { en: "In my opinion, you don't have to do it.", cue: "(As usual)", ja: "私の意見では、あなたはそれをしなくてもいいです。" },
+                    { en: "As usual, you don't have to do it.", cue: "", ja: "いつものとおり、あなたはそれをしなくてもいいです。" }
+                ],
+                "H": [
+                    { en: "I won't keep you long.", cue: "(make, sad)", ja: "お手間はとらせませんよ。" },
+                    { en: "I won't make you sad.", cue: "(the people, wait)", ja: "あなたを悲しませはしないよ。" },
+                    { en: "I won't make the people wait.", cue: "(her, my wife)", ja: "その人たちを待たせるつもりはないよ。" },
+                    { en: "I won't make her my wife.", cue: "", ja: "彼女を妻にはしないよ。" }
+                ],
+                "I": [
+                    { en: "We have something to eat now.", cue: "(a lot of books to read)", ja: "今、私たちには食べるものがあります。" },
+                    { en: "We have a lot of books to read now.", cue: "(negative, any books)", ja: "今、私たちには読むべき本がたくさんあります。" },
+                    { en: "We don't have any books to read now.", cue: "(anything to do)", ja: "今、私たちには読むべき本が一冊もありません。" },
+                    { en: "We don't have anything to do now.", cue: "(question)", ja: "今、私たちには何もすることがない。" },
+                    { en: "Do we have anything to do now?", cue: "", ja: "今、私たちに何かすることがありますか?" }
+                ]
+            },
+            "Lesson 2-4": {
+                "A": [
+                    { en: "Collecting stamps is fun.", cue: "(Working with him)", ja: "切手の収集は楽しい。" },
+                    { en: "Working with him is fun.", cue: "(These activities)", ja: "彼と働くのは楽しい。" },
+                    { en: "These activities are fun.", cue: "(important)", ja: "これらの活動は楽しい。" },
+                    { en: "These activities are important.", cue: "(Eating vegetables)", ja: "野菜を食べることは重要です。" },
+                    { en: "Eating vegetables is important.", cue: "(Eating fresh fruit)", ja: "野菜を食べることは重要です。" },
+                    { en: "Eating fresh fruit is important.", cue: "(Reading books)", ja: "新鮮な果物を食べることは重要です。" },
+                    { en: "Reading books is important.", cue: "", ja: "本を読むことは重要です。" }
+                ],
+                "B": [
+                    { en: "One of my hobbies is reading books.", cue: "(He likes)", ja: "私の趣味の一つは読書です。" },
+                    { en: "He likes reading books.", cue: "(question)", ja: "彼は本を読むのが好きだ。" },
+                    { en: "Does he like reading books?", cue: "(you, enjoy)", ja: "彼は本を読むのが好きですか?" },
+                    { en: "Do you enjoy reading books?", cue: "(hiking in the mountains)", ja: "読書をするのは楽しいですか?" },
+                    { en: "Do you enjoy hiking in the mountains?", cue: "(cooking at home)", ja: "山でのハイキングは楽しいですか?" },
+                    { en: "Do you enjoy cooking at home?", cue: "(positive, I hate)", ja: "家で料理するのは楽しいですか?" },
+                    { en: "I hate cooking at home.", cue: "", ja: "家で料理するのは嫌いだ。" }
+                ],
+                "C": [
+                    { en: "I remembered to buy the book.", cue: "(to buy → buying)", ja: "その本を買おうとしていることを思い出した。" },
+                    { en: "I remembered buying the book.", cue: "(meeting him at school)", ja: "その本を買ったことを思い出した。" },
+                    { en: "I remembered meeting him at school.", cue: "(to meet)", ja: "学校で彼に会ったことを思い出した。" },
+                    { en: "I remembered to meet him at school.", cue: "(tried, to go to Harvard)", ja: "学校で彼に会おうとしていることを思い出した。" },
+                    { en: "I tried to go to Harvard.", cue: "(going)", ja: "ハーバード大学に行こうとしたがだめだった。" },
+                    { en: "I tried going to Harvard.", cue: "", ja: "試しにハーバード大学に通ってみた。" }
+                ],
+                "D": [
+                    { en: "Nice to meet you.", cue: "(meeting)", ja: "初めまして。" },
+                    { en: "Nice meeting you.", cue: "(to see)", ja: "お会いできて良かったです(別れ際に)。" },
+                    { en: "Nice to see you.", cue: "(talking with you)", ja: "お会いできてうれしいです(以前に会っている)。" },
+                    { en: "Nice talking with you.", cue: "(working)", ja: "お話できて良かったです。" },
+                    { en: "Nice working with you.", cue: "", ja: "一緒に働けて良かったです。" }
+                ],
+                "E": [
+                    { en: "He likes to play it.", cue: "(playing)", ja: "彼はそれで遊ぶのが好きだ。" },
+                    { en: "He likes playing it.", cue: "(love)", ja: "彼はそれで遊ぶのが好きだ。" },
+                    { en: "He loves playing it.", cue: "(to play)", ja: "彼はそれで遊ぶのが大好きだ。" },
+                    { en: "He loves to play it.", cue: "(began, to smoke,-it)", ja: "彼はそれで遊ぶのが大好きだ。" },
+                    { en: "He began to smoke.", cue: "(smoking)", ja: "彼はたばこを吸い始めた。" },
+                    { en: "He began smoking.", cue: "(stopped)", ja: "彼はたばこを吸い始めた。" },
+                    { en: "He stopped smoking.", cue: "(to smoke)", ja: "彼は禁煙した。" },
+                    { en: "He stopped to smoke.", cue: "", ja: "彼は喫煙するために立ち止まった。" }
+                ],
+                "F": [
+                    { en: "Excuse me, but could you tell me your name?", cue: "(sit here)", ja: "すみませんが、お名前を教えていただけますか?" },
+                    { en: "Excuse me, but could you sit here?", cue: "(it's too difficult for me)", ja: "すみませんが、こちらに座っていただけますか?" },
+                    { en: "Excuse me, but it's too difficult for me.", cue: "(I'm sorry)", ja: "すみませんが、私には難しすぎます。" },
+                    { en: "I'm sorry, but it's too difficult for me.", cue: "(I don't know the answer)", ja: "ごめんなさい、でも私には難しすぎます。" },
+                    { en: "I'm sorry, but I don't know the answer.", cue: "", ja: "ごめんなさい、でも私はその答えが分かりません。" }
+                ]
+            },
+            "Lesson 2-5": {
+                "A": [
+                    { en: "They treated her nicely.", cue: "(passive)", ja: "彼らは彼女を親切に扱った。" },
+                    { en: "She was treated nicely by them.", cue: "", ja: "彼女は彼らに親切に扱われた。" }
+                ],
+                "B": [
+                    { en: "His mother wakes him up every morning.", cue: "(passive)", ja: "毎朝、母親が彼を起こしています。" },
+                    { en: "He is woken up by his mother every morning.", cue: "", ja: "毎朝、彼は母親に起こされています。" }
+                ],
+                "C": [
+                    { en: "A truck hit his car last night.", cue: "(passive)", ja: "昨夜、トラックが彼の車にぶつかった。" },
+                    { en: "His car was hit by a truck last night.", cue: "", ja: "昨夜、彼の車はトラックにぶつけられた。" }
+                ],
+                "D": [
+                    { en: "This works slowly.", cue: "(well)", ja: "これはゆっくり稼働する。" },
+                    { en: "This works well.", cue: "(happen, sometimes)", ja: "これはうまく稼働する。" },
+                    { en: "This happens sometimes.", cue: "(These, break)", ja: "これは時々起こる。" },
+                    { en: "These break sometimes.", cue: "(That, help)", ja: "これらは時々壊れる。" },
+                    { en: "That helps sometimes.", cue: "", ja: "あれは時々役に立つ。" }
+                ],
+                "E": [
+                    { en: "This movie is interesting to Tom.", cue: "(Tom is)", ja: "この映画はトムにとって面白い。" },
+                    { en: "Tom is interested in this movie.", cue: "(bored with)", ja: "トムはこの映画に興味を持っている。" },
+                    { en: "Tom is bored with this movie.", cue: "(This movie is)", ja: "トムはこの映画に飽きている。" },
+                    { en: "This movie is boring to Tom.", cue: "(tiring)", ja: "この映画はトムにとって退屈だ。" },
+                    { en: "This movie is tiring to Tom.", cue: "(Tom is)", ja: "この映画はトムにとって疲れる。" },
+                    { en: "Tom is tired of this movie.", cue: "(excited by)", ja: "トムはこの映画に疲れている。" },
+                    { en: "Tom is excited by this movie.", cue: "(This movie is)", ja: "トムはこの映画に興奮している。" },
+                    { en: "This movie is exciting for Tom.", cue: "", ja: "この映画はトムは興奮させられる。" }
+                ],
+                "F": [
+                    { en: "Those flowers are really nice.", cue: "(Growing flowers)", ja: "それらの花はとても素敵だ。" },
+                    { en: "Growing flowers is really nice.", cue: "(Sleeping babies, cute)", ja: "花を育てるのはとても楽しい。" },
+                    { en: "Sleeping babies are really cute.", cue: "(Collecting coins, interesting)", ja: "眠っている赤ちゃんたちはとてもかわいい。" },
+                    { en: "Collecting coins is really interesting.", cue: "(Those people, noisy)", ja: "コインの収集はとても面白い。" },
+                    { en: "Those people are really noisy.", cue: "", ja: "その人たちはとてもうるさい。" }
+                ]
+            },
+            "Lesson 2-6": {
+                "A": [
+                    { en: "I think that she is sick.", cue: "(very tired)", ja: "私は彼女が病気だと思う。" },
+                    { en: "I think that she is very tired.", cue: "(will come)", ja: "私は彼女がとても疲れていると思う。" },
+                    { en: "I think that she will come.", cue: "(He)", ja: "私は彼女が来ると思う。" },
+                    { en: "He thinks that she will come.", cue: "(negative)", ja: "彼は彼女が来ると思っている。" },
+                    { en: "He doesn't think that she will come.", cue: "(question)", ja: "彼は彼女が来るとは思っていない。" },
+                    { en: "Does he think that she will come?", cue: "(positive, past)", ja: "彼は彼女が来ると思っていますか?" },
+                    { en: "He thought that she would come.", cue: "(told me)", ja: "彼は彼女が来ると思っていた。" },
+                    { en: "He told me that she would come.", cue: "", ja: "彼は彼女が来るだろうと私に言った。" }
+                ],
+                "B": [
+                    { en: "Does she know what that is?", cue: "(who will come)", ja: "彼女はそれが何か知っていますか?" },
+                    { en: "Does she know who will come?", cue: "(when he)", ja: "彼女は誰が来るか知っていますか?" },
+                    { en: "Does she know when he will come?", cue: "(how)", ja: "彼女は彼がどうやって来るか知っていますか?" },
+                    { en: "Does she know how he will come?", cue: "(why)", ja: "彼女は彼がなぜ来るのか知っていますか?" },
+                    { en: "Does she know why he will come?", cue: "(negative)", ja: "彼女は彼がなぜ来るのか知っていますか?" },
+                    { en: "She doesn't know why he will come.", cue: "(tell me)", ja: "彼女は彼がなぜ来るのか知らない。" },
+                    { en: "She doesn't tell me why he will come.", cue: "", ja: "彼女は彼がなぜ来るのか私には言わない。" }
+                ],
+                "C": [
+                    { en: "It is strange that she says so.", cue: "(negative)", ja: "彼女がそう言うのは奇妙だ。" },
+                    { en: "It isn't strange that she says so.", cue: "(important)", ja: "彼女がそう言うのは奇妙ではない。" },
+                    { en: "It isn't important that she says so.", cue: "(what she does)", ja: "彼女がそう言うのは重要ではない。" },
+                    { en: "It isn't important what she does.", cue: "(past)", ja: "彼女が何をするかは重要ではない。" },
+                    { en: "It wasn't important what she did.", cue: "(clear)", ja: "彼女が何をしたかは重要ではなかった。" },
+                    { en: "It wasn't clear what she did.", cue: "", ja: "彼女が何をしたか、はっきりしていなかった。" }
+                ],
+                "D": [
+                    { en: "He has as much money as she does.", cue: "(books)", ja: "彼は彼女と同じくらい多額のお金を持っている。" },
+                    { en: "He has as many books as she does.", cue: "", ja: "彼は彼女と同じくらいたくさんの本を持っている。" }
+                ],
+                "E": [
+                    { en: "He speaks English as well as Kim.", cue: "(studies, hard)", ja: "彼はキムと同じくらいうまく英語を話す。" },
+                    { en: "He studies English as hard as Kim.", cue: "(likes studying English, much)", ja: "彼はキムと同じくらい一生懸命に英語を勉強している。" },
+                    { en: "He likes studying English as much as Kim.", cue: "(eating Korean food)", ja: "彼はキムと同じくらい英語学習が好きだ。" },
+                    { en: "He likes eating Korean food as much as Kim.", cue: "(as far as I know)", ja: "彼はキムと同じくらい韓国料理を食べるのが好きだ。" },
+                    { en: "He likes eating Korean food as far as I know.", cue: "", ja: "私の知る限り、彼は韓国料理を食べるのが好きだ。" }
+                ],
+                "F": [
+                    { en: "She has more money than I do.", cue: "(more books)", ja: "彼女は私よりも多くのお金を持っている。" },
+                    { en: "She has more books than I do.", cue: "(is taller, than me)", ja: "彼女は私よりも多くの本を持っている。" },
+                    { en: "She is taller than me.", cue: "(funnier)", ja: "彼女は私よりも背が高い。" },
+                    { en: "She is funnier than me.", cue: "(surprised)", ja: "彼女は私よりもこっけいで面白い。" },
+                    { en: "She is more surprised than me.", cue: "(+I think)", ja: "彼女は私よりももっと驚いている。" },
+                    { en: "I think she is more surprised than me.", cue: "(negative)", ja: "彼女は私よりももっと驚いていると思う。" },
+                    { en: "I don't think she is more surprised than me.", cue: "", ja: "彼女が私よりも驚いているとは思わない。" }
+                ],
+                "G": [
+                    { en: "Tom is the tallest student in his class.", cue: "(smartest student)", ja: "トムはクラスで一番背が高い。" },
+                    { en: "Tom is the smartest student in his class.", cue: "(-in his class, of all the students)", ja: "トムはクラスで一番賢い。" },
+                    { en: "Tom is the smartest of all the students.", cue: "(that I ever met)", ja: "トムはそのどの学生よりも賢い。" },
+                    { en: "Tom is the smartest student that I ever met.", cue: "", ja: "トムは私が会った学生の中で一番賢い。" }
+                ]
+            },
+            "Lesson 2-7": {
+                "A": [
+                    { en: "Tell me when she will come home.", cue: "(comes)", ja: "彼女がいつ家に帰ってくるか私に教えて。" },
+                    { en: "Tell me when she comes home.", cue: "", ja: "彼女が家に帰ってきたら教えて。" }
+                ],
+                "B": [
+                    { en: "I will study in the US when I have a chance to do it.", cue: "(if)", ja: "機会があるときに、私はアメリカで勉強します。" },
+                    { en: "I will study in the US if I have a chance to do it.", cue: "(before I turn 20)", ja: "もし機会があれば、私はアメリカで勉強します。" },
+                    { en: "I will study in the US before I turn 20.", cue: "(after)", ja: "20歳になる前に、私はアメリカで勉強します。" },
+                    { en: "I will study in the US after I turn 20.", cue: "(while I can)", ja: "20歳になってから、私はアメリカで勉強します。" },
+                    { en: "I will study in the US while I can.", cue: "(because I like the country)", ja: "可能な間に、私はアメリカで勉強します。" },
+                    { en: "I will study in the US because I like the country.", cue: "", ja: "好きな国なので私はアメリカで勉強します。" }
+                ],
+                "C": [
+                    { en: "He is going skiing on Sunday.", cue: "(Sunday night)", ja: "彼は日曜日にスキーに行く予定だ。" },
+                    { en: "He is going skiing on Sunday night.", cue: "(January 1st)", ja: "彼は日曜日の夜にスキーに行く予定だ。" },
+                    { en: "He is going skiing on January 1st.", cue: "(afternoon)", ja: "彼は1月1日にスキーに行く予定だ。" },
+                    { en: "He is going skiing in the afternoon.", cue: "(leaving, 8:30)", ja: "彼は午後にスキーに行く予定だ。" },
+                    { en: "He is leaving at 8:30.", cue: "", ja: "彼は8時30分に出発する予定だ。" }
+                ],
+                "D": [
+                    { en: "John is at home.", cue: "(school)", ja: "ジョンは家にいる。" },
+                    { en: "John is at school.", cue: "(library)", ja: "ジョンは学校にいる。" },
+                    { en: "John is at the library.", cue: "(question)", ja: "ジョンは図書館にいる。" },
+                    { en: "Is John at the library?", cue: "(go to, noon)", ja: "ジョンは図書館にいるの?" },
+                    { en: "Does John go to the library at noon?", cue: "(positive)", ja: "ジョンは正午に図書館に行くの?" },
+                    { en: "John goes to the library at noon.", cue: "(home)", ja: "ジョンは正午に図書館に行く。" },
+                    { en: "John goes home at noon.", cue: "", ja: "ジョンは正午に家に帰る。" }
+                ],
+                "E": [
+                    { en: "Let's do it in the morning.", cue: "(evening)", ja: "それを朝にやろうよ。" },
+                    { en: "Let's do it in the evening.", cue: "(night)", ja: "それを晩にやろうよ。" },
+                    { en: "Let's do it at night.", cue: "(go there)", ja: "それを夜にやろうよ。" },
+                    { en: "Let's go there at night.", cue: "(the restaurant)", ja: "夜にそこへ行こうよ。" },
+                    { en: "Let's go to the restaurant at night.", cue: "(this month)", ja: "夜にそのレストランに行こうよ。" },
+                    { en: "Let's go to the restaurant this month.", cue: "(next month)", ja: "今月、そのレストランに行こうよ。" },
+                    { en: "Let's go to the restaurant next month.", cue: "(this evening)", ja: "来月、そのレストランに行こうよ。" },
+                    { en: "Let's go to the restaurant this evening.", cue: "", ja: "今晩、そのレストランに行こうよ。" }
+                ]
+            },
+            "Lesson 3-1": {
+                "A": [
+                    { en: "I have run before.", cue: "(last year)", ja: "以前ランニングしていました。" },
+                    { en: "I ran last year.", cue: "(these days)", ja: "私は去年ランニングしていました。" },
+                    { en: "I run these days.", cue: "", ja: "最近ランニングしています。" }
+                ],
+                "B": [
+                    { en: "She has finished her homework.", cue: "(is finished)", ja: "彼女は宿題を終えました。" },
+                    { en: "She is finished with her homework.", cue: "(yesterday)", ja: "彼女は宿題を終えています。" },
+                    { en: "She finished her homework yesterday.", cue: "(married)", ja: "彼女は昨日宿題を終えました。" },
+                    { en: "She married yesterday.", cue: "(+him)", ja: "彼女は昨日結婚しました。" },
+                    { en: "She married him yesterday.", cue: "(is married,-yesterday)", ja: "彼女は昨日彼と結婚しました。" },
+                    { en: "She is married to him.", cue: "", ja: "彼女は彼と結婚しています。" }
+                ],
+                "C": [
+                    { en: "Has she ever been to a foreign country?", cue: "(positive, -ever)", ja: "彼女は海外に行ったことがありますか?" },
+                    { en: "She has been to a foreign country.", cue: "(negative)", ja: "彼女は海外に行ったことがあります。" },
+                    { en: "She hasn't been to a foreign country.", cue: "(has lived in the US)", ja: "彼女は海外に行ったことがありません。" },
+                    { en: "She has lived in the US.", cue: "(question, How long)", ja: "彼女はアメリカに住んだことがあります。" },
+                    { en: "How long has she lived in the US?", cue: "", ja: "彼女はどのくらいアメリカに住んでいますか?" }
+                ],
+                "D": [
+                    { en: "Has Mr. Tanaka come already?", cue: "(yet)", ja: "田中さんはもういらしてますか?" },
+                    { en: "Has Mr. Tanaka come yet?", cue: "(negative)", ja: "田中さんはもういらしてますか?" },
+                    { en: "Mr. Tanaka hasn't come yet.", cue: "(positive, already)", ja: "田中さんはまだいらしてません。" },
+                    { en: "Mr. Tanaka has come already.", cue: "", ja: "田中さんはもういらっしゃいましたよ。" }
+                ],
+                "E": [
+                    { en: "That is the PC that she brought yesterday.", cue: "(the student)", ja: "あれが昨日彼女が持ってきたパソコンです。" },
+                    { en: "That is the student who she brought yesterday.", cue: "(who came)", ja: "あちらが昨日彼女が連れてきた学生です。" },
+                    { en: "That is the student who came yesterday.", cue: "(She talked to)", ja: "あちらは昨日来た学生です。" },
+                    { en: "She talked to the student who came yesterday.", cue: "(question)", ja: "彼女は昨日来た学生と話しました。" },
+                    { en: "Did she talk to the student who came yesterday?", cue: "", ja: "彼女は昨日来た学生と話しましたか?" }
+                ],
+                "F": [
+                    { en: "He likes to see animals that are in the wild.", cue: "(question)", ja: "彼は野生の動物を見るのが好きです。" },
+                    { en: "Does he like to see animals that are in the wild?", cue: "(negative, zoos)", ja: "彼は野生の動物を見るのが好きですか?" },
+                    { en: "He doesn't like to see animals that are in zoos.", cue: "(-that are)", ja: "彼は動物園の動物を見るのが好きではありません。" },
+                    { en: "He doesn't like to see animals in zoos.", cue: "(question, Who)", ja: "彼は動物園で動物を見るのが好きではありません。" },
+                    { en: "Who doesn't like to see animals in zoos?", cue: "(+ I know a person)", ja: "動物園で動物を見るのが好きではないのは誰ですか?" },
+                    { en: "I know a person who doesn't like to see animals in zoos.", cue: "", ja: "動物園で動物を見るのが好きではない人を私は知っています。" }
+                ]
+            },
+            "Lesson 3-2": {
+                "A": [
+                    { en: "She leaves early.", cue: "(progressive)", ja: "彼女は早く出かけます。" },
+                    { en: "She is leaving early.", cue: "(live, in Tokyo)", ja: "彼女は早く出かけようとしています。" },
+                    { en: "She is living in Tokyo.", cue: "(lives)", ja: "彼女は東京に住んでいます。" },
+                    { en: "She lives in Tokyo.", cue: "", ja: "彼女は東京に住んでいます。" }
+                ],
+                "B": [
+                    { en: "He worked in America for two years.", cue: "(has worked)", ja: "彼は2年間アメリカで働きました。" },
+                    { en: "He has worked in America for two years.", cue: "(be going to)", ja: "彼は2年間アメリカで働いています。" },
+                    { en: "He is going to work in America for two years.", cue: "(should)", ja: "彼は2年間アメリカで働くつもりです。" },
+                    { en: "He should work in America for two years.", cue: "", ja: "彼は2年間アメリカで働くべきですよ。" }
+                ],
+                "C": [
+                    { en: "He is finished with school.", cue: "(has finished)", ja: "彼は学校を卒業している。" },
+                    { en: "He has finished school.", cue: "(finished)", ja: "彼は学校を卒業した。" },
+                    { en: "He finished school.", cue: "(was finishing)", ja: "彼は学校を卒業した。" },
+                    { en: "He was finishing school.", cue: "(will, next year)", ja: "彼は学校を卒業しようとしていた。" },
+                    { en: "He will finish school next year.", cue: "(might)", ja: "彼は学校を来年卒業します。" },
+                    { en: "He might finish school next year.", cue: "", ja: "彼はひょっとすると学校を来年卒業するかもしれない。" }
+                ],
+                "D": [
+                    { en: "She understands it.", cue: "(question)", ja: "彼女はそれを理解しています。" },
+                    { en: "Does she understand it?", cue: "(negative, I)", ja: "彼女はそれを理解していますか?" },
+                    { en: "I don't understand it.", cue: "(positive, believe)", ja: "私はそれは理解していません。" },
+                    { en: "I believe it.", cue: "(requested)", ja: "私はそれを信じています。" },
+                    { en: "I requested it.", cue: "(We, his support)", ja: "私はそれを要望しました。" },
+                    { en: "We requested his support.", cue: "", ja: "私たちは彼にご支援をお願いしました。" }
+                ],
+                "E": [
+                    { en: "I hear you are good at cooking.", cue: "(heard)", ja: "あなたは料理が上手だと聞いています。" },
+                    { en: "I heard you are good at cooking.", cue: "(have heard)", ja: "あなたは料理が上手だと聞きました。" },
+                    { en: "I have heard you are good at cooking.", cue: "(He says)", ja: "あなたは料理が上手だと聞いています。" },
+                    { en: "He says you are good at cooking.", cue: "(She tells me)", ja: "彼は、あなたが料理上手だと言っています。" },
+                    { en: "She tells me you are good at cooking.", cue: "", ja: "彼女は私にあなたが料理上手だと言っています。" }
+                ],
+                "F": [
+                    { en: "Mary wore glasses.", cue: "(present)", ja: "マリーは眼鏡をかけていました。" },
+                    { en: "Mary wears glasses.", cue: "(is wearing)", ja: "マリーは眼鏡をかけています。" },
+                    { en: "Mary is wearing glasses.", cue: "(contacts)", ja: "マリーは眼鏡をかけています。" },
+                    { en: "Mary is wearing contacts.", cue: "(standing, over there)", ja: "マリーはコンタクトレンズを着けています。" },
+                    { en: "Mary is standing over there.", cue: "(sitting)", ja: "マリーはあそこに立っています。" },
+                    { en: "Mary is sitting over there.", cue: "(past)", ja: "マリーはあそこに座っています。" },
+                    { en: "Mary was sitting over there.", cue: "", ja: "マリーはあそこに座っていました。" }
+                ],
+                "G": [
+                    { en: "Didn't I tell him about it?", cue: "(you)", ja: "私は彼に、それについて話しませんでしたか?" },
+                    { en: "Didn't you tell him about it?", cue: "(Can't)", ja: "あなたは彼に、それについて話さなかったのですか?" },
+                    { en: "Can't you tell him about it?", cue: "(Could)", ja: "彼に、それについて話してもらえませんか?" },
+                    { en: "Could you tell him about it?", cue: "(positive)", ja: "彼に、それについて話していただけますか?" },
+                    { en: "You could tell him about it.", cue: "(must)", ja: "あなたは彼に、それについて話しても構いません。" },
+                    { en: "You must tell him about it.", cue: "", ja: "あなたは彼に、それについて話さなければなりません。" }
+                ],
+                "H": [
+                    { en: "You are eating out tonight, right?", cue: "(no)", ja: "あなたは今夜外食する予定ですよね?" },
+                    { en: "You are eating out tonight, no?", cue: "(aren't you?)", ja: "今夜あなたは外食するんですよね?" },
+                    { en: "You are eating out tonight, aren't you?", cue: "(have to)", ja: "今夜あなたは外食する予定ですよね?" },
+                    { en: "You have to eat out tonight, don't you?", cue: "(should)", ja: "今夜あなたは外食しなければならないんですよね?" },
+                    { en: "You should eat out tonight, shouldn't you?", cue: "", ja: "今夜あなたは外食しなければならないんですよね?" }
+                ],
+                "I": [
+                    { en: "How to do it is an important question.", cue: "(What to do)", ja: "それをどうするのかが重要な問題です。" },
+                    { en: "What to do is an important question.", cue: "(Where to go)", ja: "何をするのかが重要な問題です。" },
+                    { en: "Where to go is an important question.", cue: "(When)", ja: "どこに行くのかが重要な問題です。" },
+                    { en: "When to go is an important question.", cue: "", ja: "いつ行くのかが重要な問題です。" }
+                ],
+                "J": [
+                    { en: "Tell me whether to buy it.", cue: "(when)", ja: "それを買うべきかどうか教えてください。" },
+                    { en: "Tell me when to buy it.", cue: "(how)", ja: "いつそれを買うべきか教えてください。" },
+                    { en: "Tell me how to buy it.", cue: "(where)", ja: "それをどうやって買うべきか教えてください。" },
+                    { en: "Tell me where to buy it.", cue: "(What, -it)", ja: "それをどこで買うべきか教えてください。" },
+                    { en: "Tell me what to buy.", cue: "", ja: "何を買うべきか教えてください。" }
+                ]
+            },
+            "Lesson 3-3": {
+                "A": [
+                    { en: "I bought it for 5,000 yen or so.", cue: "(100,000)", ja: "私はそれを5,000 かそこらで買った。" },
+                    { en: "I bought it for 100,000 yen or so.", cue: "(1,000,000)", ja: "私はそれを10万円かそこらで買った。" },
+                    { en: "I bought it for 1,000,000 yen or so.", cue: "(2,500,000)", ja: "私はそれを100万円かそこらで買った。" },
+                    { en: "I bought it for 2,500,000 yen or so.", cue: "(100,000,000)", ja: "私はそれを250万円かそこらで買った。" },
+                    { en: "I bought it for 100,000,000 yen or so.", cue: "", ja: "私はそれを1億円かそこらで買った。" }
+                ],
+                "B": [
+                    { en: "I think he is something.", cue: "(nothing)", ja: "僕は彼をすごい人だと思う。" },
+                    { en: "I think he is nothing.", cue: "(some cook)", ja: "僕は彼を大した人ではないと思う。" },
+                    { en: "I think he is some cook.", cue: "(that, painting)", ja: "僕は彼をすごい料理人だと思う。" },
+                    { en: "I think that is some painting.", cue: "", ja: "僕はあれをすごい絵だと思う。" }
+                ]
+            },
+            "Lesson 3-4": {
+                "A": [
+                    { en: "Russia is the largest country in the world.", cue: "(Pacific Ocean)", ja: "ロシアは世界で最も大きな国です。" },
+                    { en: "The Pacific Ocean is the largest ocean in the world.", cue: "(Nile)", ja: "太平洋は世界で最も大きな海です。" },
+                    { en: "The Nile is the longest river in the world.", cue: "(Mt. Everest)", ja: "ナイル川は世界で最も長い川です。" },
+                    { en: "Mt. Everest is the highest mountain in the world.", cue: "(Sahara)", ja: "エベレスト山は世界で最も高い山です。" },
+                    { en: "The Sahara is the largest desert in the world.", cue: "(Lake Biwa, in Japan)", ja: "サハラ砂漠は世界で最も大きな砂漠です。" },
+                    { en: "Lake Biwa is the largest lake in Japan.", cue: "(Toyama Bay, one of the largest)", ja: "琵琶湖は日本で最も大きな湖です。" },
+                    { en: "Toyama Bay is one of the largest bays in Japan.", cue: "", ja: "富山湾は日本で最も大きな湾の1つです。" }
+                ],
+                "B": [
+                    { en: "You are the one responsible for the accident.", cue: "(+who is)", ja: "あなたが、その事故の責任を負うべき人です。" },
+                    { en: "You are the one who is responsible for the accident.", cue: "", ja: "あなたが、その事故の責任を負うべき人です。" }
+                ],
+                "C": [
+                    { en: "Fred is the boy on the left.", cue: "(+who is)", ja: "フレッドは左側の少年だよ。" },
+                    { en: "Fred is the boy who is on the left.", cue: "", ja: "フレッドは左側の少年だよ。" }
+                ],
+                "D": [
+                    { en: "The girl standing over there is my sister.", cue: "(+who is)", ja: "あそこに立っている女の子は私の妹です。" },
+                    { en: "The girl who is standing over there is my sister.", cue: "", ja: "あそこに立っている女の子は私の妹です。" }
+                ],
+                "E": [
+                    { en: "The papers on the table can go in the garbage.", cue: "(+which are)", ja: "テーブルの上の書類はゴミ箱に捨てていいです。" },
+                    { en: "The papers which are on the table can go in the garbage.", cue: "", ja: "テーブルの上の書類はゴミ箱に捨てていいです。" }
+                ],
+                "F": [
+                    { en: "It is good for you to help others.", cue: "(difficult, stop drinking)", ja: "他人を助けるのはあなたにとって良いことです。" },
+                    { en: "It is difficult for you to stop drinking.", cue: "(start your own business)", ja: "あなたが飲酒をやめるのは難しいですよ。" },
+                    { en: "It is difficult for you to start your own business.", cue: "(wrong, to do it)", ja: "あなたが自分自身のビジネスを始めるのは難しいですよ。" },
+                    { en: "It is wrong of you to do it.", cue: "(kind, to drive me home)", ja: "あなたがそれをするのは間違いです。" },
+                    { en: "It is kind of you to drive me home.", cue: "", ja: "私を家まで車で送ってくれるなんて、あなたは親切ですね。" }
+                ]
+            },
+            "Lesson 3-5": {
+                "A": [
+                    { en: "Help me to carry this baggage.", cue: "(-to)", ja: "この荷物を運ぶの手伝って。" },
+                    { en: "Help me carry this baggage.", cue: "(come eat, -me, -this baggage)", ja: "この荷物を運ぶの手伝って。" },
+                    { en: "Come eat.", cue: "(to eat)", ja: "食べに来て。" },
+                    { en: "Come to eat.", cue: "(Go)", ja: "食べに来て。" },
+                    { en: "Go to eat.", cue: "(-to)", ja: "行って食べて。" },
+                    { en: "Go eat.", cue: "", ja: "行って食べて。" }
+                ],
+                "B": [
+                    { en: "Make him come early.", cue: "(Have)", ja: "彼を早く来させて。" },
+                    { en: "Have him come early.", cue: "(Get)", ja: "彼を早く来させて。" },
+                    { en: "Get him to come early.", cue: "(Let)", ja: "彼を早く来るように説得して。" },
+                    { en: "Let him come early.", cue: "", ja: "彼を早く来させてあげて。" }
+                ],
+                "C": [
+                    { en: "I saw her alone.", cue: "(watching TV)", ja: "彼女が1人でいるのを見た。" },
+                    { en: "I saw her watching TV.", cue: "(entering the room)", ja: "彼女がテレビを見ているところを見た。" },
+                    { en: "I saw her entering the room.", cue: "(enter)", ja: "彼女が部屋に入るのを見た。" },
+                    { en: "I saw her enter the room.", cue: "", ja: "彼女が部屋に入るのを見た。" }
+                ],
+                "D": [
+                    { en: "The river is difficult to reach.", cue: "(dangerous to cross)", ja: "その川へは行きにくい。" },
+                    { en: "The river is dangerous to cross.", cue: "(easy)", ja: "その川は横断するのが危険だ。" },
+                    { en: "The river is easy to cross.", cue: "", ja: "その川は横断するのが簡単だ。" }
+                ],
+                "E": [
+                    { en: "She is ready to learn Chinese.", cue: "(quick)", ja: "彼女は中国語を学ぶ準備ができている。" },
+                    { en: "She is quick to learn Chinese.", cue: "(I, slow)", ja: "彼女は中国語をすぐに習得する。" },
+                    { en: "I am slow to learn Chinese.", cue: "(fortunate to go there)", ja: "私は中国語を習得するのが遅い。" },
+                    { en: "I am fortunate to go there.", cue: "(They are afraid)", ja: "そこに行けるとは私は運がいい。" },
+                    { en: "They are afraid to go there.", cue: "", ja: "彼らは怖くてそこに行けない。" }
+                ],
+                "F": [
+                    { en: "Get in the taxi!", cue: "(bus)", ja: "タクシーに乗って!" },
+                    { en: "Get on the bus!", cue: "(off)", ja: "バスに乗って!" },
+                    { en: "Get off the bus!", cue: "(the car)", ja: "バスから降りて!" },
+                    { en: "Get out of the car!", cue: "", ja: "車から降りて!" }
+                ],
+                "G": [
+                    { en: "Many people die from air pollution.", cue: "(this illness)", ja: "多くの人が大気汚染で亡くなっている。" },
+                    { en: "Many people die of this illness.", cue: "(electric shocks)", ja: "多くの人がこの病気で亡くなっている。" },
+                    { en: "Many people die from electric shocks.", cue: "(cancer)", ja: "多くの人が電気ショックで亡くなっている。" },
+                    { en: "Many people die of cancer.", cue: "", ja: "多くの人が癌で亡くなっている。" }
+                ],
+                "H": [
+                    { en: "Her dress is made of silk.", cue: "(Sake, rice)", ja: "彼女のドレスは絹で出来ている。" },
+                    { en: "Sake is made from rice.", cue: "(My desk, wood)", ja: "日本酒はコメから作られている。" },
+                    { en: "My desk is made of wood.", cue: "(Wine, grapes)", ja: "私の机は木製だ。" },
+                    { en: "Wine is made from grapes.", cue: "", ja: "ワインはブドウから作られている。" }
+                ]
+            },
+            "Lesson 3-6": {
+                "A": [
+                    { en: "I remember the day when I met him for the first time.", cue: "(-the day)", ja: "最初に彼に会った日のことを覚えている。" },
+                    { en: "I remember when I met him for the first time.", cue: "(when → the day)", ja: "最初に彼に会った日のことを覚えている。" },
+                    { en: "I remember the day I met him for the first time.", cue: "(the place where)", ja: "最初に彼に会った日のことを覚えている。" },
+                    { en: "I remember the place where I met him for the first time.", cue: "(-the place)", ja: "最初に彼に会った場所を覚えている。" },
+                    { en: "I remember where I met him for the first time.", cue: "(the reason why, -for the first time)", ja: "最初に彼に会った場所を覚えている。" },
+                    { en: "I remember the reason why I met him.", cue: "(-the reason)", ja: "彼に会った理由を覚えている。" },
+                    { en: "I remember why I met him.", cue: "(why → the reason)", ja: "彼に会った理由を覚えている。" },
+                    { en: "I remember the reason I met him.", cue: "(how)", ja: "彼に会った理由を覚えている。" },
+                    { en: "I remember how I met him.", cue: "(how → the way)", ja: "彼にどうやって会ったか覚えている。" },
+                    { en: "I remember the way I met him.", cue: "", ja: "彼にどうやって会ったか覚えている。" }
+                ],
+                "B": [
+                    { en: "I have a girlfriend whose father is an actor.", cue: "(know a person)", ja: "私には恋人がいて、その彼女の父親は俳優だ。" },
+                    { en: "I know a person whose father is an actor.", cue: "(whose cooking is amazing)", ja: "俳優の父親がいる人を知っている。" },
+                    { en: "I know a person whose cooking is amazing.", cue: "(whose car is always clean)", ja: "料理がすごく上手な人を知っている。" },
+                    { en: "I know a person whose car is always clean.", cue: "", ja: "車をいつもきれいにしている人を知っている。" }
+                ],
+                "C": [
+                    { en: "If he comes tonight, Nancy will give it to him.", cue: "(came)", ja: "彼が今夜来れば、ナンシーはそれを彼にあげるだろう。" },
+                    { en: "If he came tonight, Nancy would give it to him.", cue: "(he goes there)", ja: "彼が今夜来たら、ナンシーはそれを彼にあげるだろうけどね(来る可能性はかなり低い)。" },
+                    { en: "If he goes there tonight, Nancy will give it to him.", cue: "(went)", ja: "彼が今夜そこに行けば、ナンシーはそれを彼にあげるだろう。" },
+                    { en: "If he went there tonight, Nancy would give it to him.", cue: "", ja: "彼が今夜そこに行ったら、ナンシーはそれを彼にあげるだろうけどね(そこに行く可能性はかなり低い)。" }
+                ],
+                "D": [
+                    { en: "If I have enough money, I will go to America to study next year.", cue: "(have → had)", ja: "私に十分にお金があれば、来年アメリカに留学するだろう。" },
+                    { en: "If I had enough money, I would go to America to study next year.", cue: "(I were you)", ja: "私にもし十分にお金があったら、来年アメリカに留学するだろうけどね(そうする可能性がないか低い)。" },
+                    { en: "If I were you, I would go to America to study next year.", cue: "(I were smart, would → could)", ja: "私があなたなら、来年アメリカに留学するだろうけどね。" },
+                    { en: "If I were smart, I could go to America to study next year.", cue: "", ja: "もしかしたら、来年アメリカに留学できるだろうけどね。" }
+                ]
+            }
+        };
+
+        const lessonSelect = document.getElementById('lesson-select');
+        const sectionSelect = document.getElementById('section-select');
+        const voiceSelect = document.getElementById('voice-select');
+        const speedSelect = document.getElementById('speed-select');
+        const waitTimeSelect = document.getElementById('wait-time-select');
+        const waitTimeContainer = document.getElementById('wait-time-container');
+        const modeRadios = document.getElementsByName('play-mode');
+        
+        const playBtn = document.getElementById('play-pause-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const playIcon = document.getElementById('play-icon');
+        const stopIcon = document.getElementById('stop-icon');
+        const playText = document.getElementById('play-text');
+        
+        const displayContent = document.getElementById('display-content');
+        const progressText = document.getElementById('progress-text');
+        const timerBarContainer = document.getElementById('timer-bar-container');
+        const timerBar = document.getElementById('timer-bar');
+
+        let synth = window.speechSynthesis;
+        let voices = [];
+        
+        let isPlaying = false;
+        let currentSectionData = [];
+        let currentIndex = 0;
+        let abortController = null;
+        let waitTimeout = null;
+
+        function populateVoices() {
+            const allVoices = synth.getVoices();
+            if (allVoices.length === 0) return;
+            
+            voiceSelect.innerHTML = '';
+
+            const badVoices = ['Fred', 'Albert', 'Bad News', 'Bahh', 'Bells', 'Boing', 'Bubbles', 'Cellos', 'Deranged', 'Good News', 'Hysterical', 'Pipe Organ', 'Trinoids', 'Whisper', 'Zarvox', 'Junior', 'Kathy', 'Princess', 'Ralph', 'Bravura', 'Superstar', 'Trickster', 'Zira', 'David', 'Mark'];
+
+            const femalePreferred = [
+                'Google US English Female', 'Google UK English Female',
+                'Samantha', 'Victoria', 'Karen', 'Moira', 'Tessa', 'Serena', 'Allison', 'Ava', 'Susan', 'Zoe', 'Fiona', 'Catherine'
+            ];
+
+            const malePreferred = [
+                'Google US English Male', 'Google UK English Male',
+                'Alex', 'Daniel', 'Arthur', 'Rishi', 'Tom', 'Oliver', 'Bruce', 'George', 'Richard'
+            ];
+
+            let females = [];
+            let males = [];
+
+            allVoices.forEach(voice => {
+                if (!voice.lang.startsWith('en')) return; 
+                if (badVoices.some(bad => voice.name.includes(bad))) return;
+
+                const fIndex = femalePreferred.findIndex(pref => voice.name.includes(pref));
+                if (fIndex !== -1) {
+                    females.push({ voice: voice, rank: fIndex });
+                    return;
+                }
+
+                const mIndex = malePreferred.findIndex(pref => voice.name.includes(pref));
+                if (mIndex !== -1) {
+                    males.push({ voice: voice, rank: mIndex });
+                    return;
+                }
+            });
+
+            females.sort((a, b) => a.rank - b.rank);
+            males.sort((a, b) => a.rank - b.rank);
+
+            const uniqueFemales = [];
+            const femaleNames = new Set();
+            females.forEach(item => {
+                if (!femaleNames.has(item.voice.name) && uniqueFemales.length < 5) {
+                    uniqueFemales.push(item.voice);
+                    femaleNames.add(item.voice.name);
+                }
+            });
+
+            const uniqueMales = [];
+            const maleNames = new Set();
+            males.forEach(item => {
+                if (!maleNames.has(item.voice.name) && uniqueMales.length < 5) {
+                    uniqueMales.push(item.voice);
+                    maleNames.add(item.voice.name);
+                }
+            });
+
+            if (uniqueFemales.length < 5 || uniqueMales.length < 5) {
+                const usedUris = new Set([...uniqueFemales.map(v => v.voiceURI), ...uniqueMales.map(v => v.voiceURI)]);
+                for (const voice of allVoices) {
+                    if (voice.lang.startsWith('en') && !badVoices.some(bad => voice.name.includes(bad)) && !usedUris.has(voice.voiceURI)) {
+                        const vName = voice.name.toLowerCase();
+                        if (vName.includes('female') && uniqueFemales.length < 5) {
+                            uniqueFemales.push(voice);
+                            usedUris.add(voice.voiceURI);
+                        } else if (vName.includes('male') && uniqueMales.length < 5) {
+                            uniqueMales.push(voice);
+                            usedUris.add(voice.voiceURI);
+                        } else if (uniqueFemales.length < 5) {
+                            uniqueFemales.push(voice);
+                            usedUris.add(voice.voiceURI);
+                        } else if (uniqueMales.length < 5) {
+                            uniqueMales.push(voice);
+                            usedUris.add(voice.voiceURI);
+                        }
+                    }
+                }
+            }
+
+            let femaleGroup = document.createElement('optgroup');
+            femaleGroup.label = "👩 女性音声 (Female)";
+            uniqueFemales.forEach((voice, index) => {
+                const option = document.createElement('option');
+                let cleanName = voice.name.replace(/(Microsoft|Google|- English \(.*?\))/gi, '').trim();
+                if(!cleanName) cleanName = voice.name;
+                let region = voice.lang.split('-')[1] || voice.lang;
+                option.textContent = `Female ${index + 1} (${region} - ${cleanName})`;
+                option.value = voice.voiceURI;
+                femaleGroup.appendChild(option);
+            });
+
+            let maleGroup = document.createElement('optgroup');
+            maleGroup.label = "👨 男性音声 (Male)";
+            uniqueMales.forEach((voice, index) => {
+                const option = document.createElement('option');
+                let cleanName = voice.name.replace(/(Microsoft|Google|- English \(.*?\))/gi, '').trim();
+                if(!cleanName) cleanName = voice.name;
+                let region = voice.lang.split('-')[1] || voice.lang;
+                option.textContent = `Male ${index + 1} (${region} - ${cleanName})`;
+                option.value = voice.voiceURI;
+                maleGroup.appendChild(option);
+            });
+
+            if (uniqueFemales.length > 0) voiceSelect.appendChild(femaleGroup);
+            if (uniqueMales.length > 0) voiceSelect.appendChild(maleGroup);
+
+            if (uniqueFemales.length === 0 && uniqueMales.length === 0) {
+                 voiceSelect.innerHTML = '<option value="">英語音声が見つかりません</option>';
+            }
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoices;
+        }
+        populateVoices();
+
+        function populateLessons() {
+            lessonSelect.innerHTML = '';
+            const lessons = Object.keys(lessonData).sort((a, b) => {
+                const [a1, a2] = a.replace('Lesson ', '').split('-').map(Number);
+                const [b1, b2] = b.replace('Lesson ', '').split('-').map(Number);
+                if (a1 !== b1) return a1 - b1;
+                return a2 - b2;
+            });
+
+            for (const lesson of lessons) {
+                const option = document.createElement('option');
+                option.value = lesson;
+                option.textContent = lesson;
+                lessonSelect.appendChild(option);
+            }
+            populateSections(lessonSelect.value);
+        }
+
+        function populateSections(lessonName) {
+            sectionSelect.innerHTML = '';
+            if (!lessonName || !lessonData[lessonName]) return;
+            const sections = lessonData[lessonName];
+            for (const section in sections) {
+                const option = document.createElement('option');
+                option.value = section;
+                option.textContent = `Section [${section}]`;
+                sectionSelect.appendChild(option);
+            }
+            loadSectionData();
+        }
+
+        function loadSectionData() {
+            const lesson = lessonSelect.value;
+            const section = sectionSelect.value;
+            if (lesson && section && lessonData[lesson][section]) {
+                currentSectionData = lessonData[lesson][section];
+                currentIndex = 0;
+                updateDisplayState();
+            }
+        }
+
+        function updateDisplayState(forceHideCue = false) {
+            if (currentSectionData.length === 0) return;
+            
+            progressText.textContent = `${currentIndex + 1} / ${currentSectionData.length}`;
+            prevBtn.disabled = (currentIndex === 0);
+            nextBtn.disabled = (currentIndex === currentSectionData.length - 1);
+            
+            if (!isPlaying || forceHideCue) {
+                const item = currentSectionData[currentIndex];
+                renderSentence(item.en, item.ja, "");
+            }
+        }
+
+        function renderSentence(en, ja, cue) {
+            displayContent.innerHTML = `
+                <div class="space-y-4 w-full px-4 animate-fade-in">
+                    <p class="text-xl sm:text-3xl font-extrabold text-blue-900 tracking-tight leading-tight">
+                        ${en} ${cue ? `<span class="text-red-500 ml-2">${cue}</span>` : ''}
+                    </p>
+                    <p class="text-base sm:text-lg text-gray-600 font-medium">${ja}</p>
+                </div>
+            `;
+        }
+
+        function sleep(ms, signal) {
+            return new Promise((resolve, reject) => {
+                const timeout = setTimeout(resolve, ms);
+                waitTimeout = timeout;
+                if (signal) {
+                    signal.addEventListener('abort', () => {
+                        clearTimeout(timeout);
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    });
+                }
+            });
+        }
+
+        function speakAsync(text, signal) {
+            return new Promise((resolve, reject) => {
+                if (signal && signal.aborted) return reject(new DOMException('Aborted', 'AbortError'));
+                
+                synth.cancel(); 
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                const selectedVoiceURI = voiceSelect.value;
+                if (selectedVoiceURI) {
+                    const allVoices = synth.getVoices();
+                    const voice = allVoices.find(v => v.voiceURI === selectedVoiceURI);
+                    if (voice) utterance.voice = voice;
+                }
+                utterance.rate = parseFloat(speedSelect.value);
+
+                utterance.onend = resolve;
+                utterance.onerror = (e) => {
+                    console.error("Speech Synthesis Error:", e);
+                    resolve(); 
+                };
+
+                if (signal) {
+                    signal.addEventListener('abort', () => {
+                        synth.cancel();
+                        reject(new DOMException('Aborted', 'AbortError'));
+                    });
+                }
+
+                synth.speak(utterance);
+            });
+        }
+
+        async function runDrillFlow() {
+            if(!voiceSelect.value) {
+                alert("Please select a voice. (指定された英語音声が利用できない環境です)");
+                return;
+            }
+
+            isPlaying = true;
+            togglePlayUI();
+            
+            abortController = new AbortController();
+            const signal = abortController.signal;
+            const isAutoMode = document.querySelector('input[name="play-mode"]:checked').value === 'auto';
+            const waitSeconds = parseInt(waitTimeSelect.value, 10);
+
+            try {
+                while (currentIndex < currentSectionData.length && isPlaying) {
+                    updateDisplayState(true); 
+                    const item = currentSectionData[currentIndex];
+
+                    renderSentence(item.en, item.ja, "");
+                    
+                    let spokenEn = item.en.replace(/\blive\b/gi, 'liv');
+                    spokenEn = spokenEn.replace(/\blives\b/gi, 'livz');
+                    await speakAsync(spokenEn, signal);
+                    
+                    if (item.cue) {
+                        await sleep(800, signal);
+
+                        renderSentence(item.en, item.ja, item.cue);
+                        
+                        let spokenCue = item.cue;
+                        
+                        spokenCue = spokenCue.replace(/([^,\(]+)\s*→\s*([^,\)]+)/g, (match, p1, p2) => {
+                            return `Replace ${p1.trim()} with ${p2.trim()}`;
+                        });
+                        
+                        spokenCue = spokenCue.replace(/\(-\s*/g, '(minus '); 
+                        spokenCue = spokenCue.replace(/-\s*/g, 'minus '); 
+                        spokenCue = spokenCue.replace(/\(\+\s*/g, '(plus '); 
+                        spokenCue = spokenCue.replace(/\+\s*/g, 'plus '); 
+
+                        spokenCue = spokenCue.replace(/[\(\)]/g, ' '); 
+                        
+                        spokenCue = spokenCue.replace(/\blive\b/gi, 'liv');
+                        spokenCue = spokenCue.replace(/\blives\b/gi, 'livz');
+                        spokenCue = spokenCue.replace(/\bread\b/gi, 'reed');
+                        
+                        await speakAsync(spokenCue.trim(), signal);
+                    }
+
+                    if (isAutoMode && currentIndex < currentSectionData.length - 1) {
+                         startProgressBar(waitSeconds);
+                         await sleep(waitSeconds * 1000, signal);
+                         stopProgressBar();
+                         currentIndex++;
+                    } else if (isAutoMode && currentIndex === currentSectionData.length - 1) {
+                         startProgressBar(waitSeconds);
+                         await sleep(waitSeconds * 1000, signal);
+                         stopProgressBar();
+                         break;
+                    } else {
+                        break; 
+                    }
+                }
+            } catch (err) {
+                if (err.name === 'AbortError') {
+                    console.log('Playback manually stopped/skipped');
+                } else {
+                    console.error('Unhandled error in drill flow', err);
+                }
+            } finally {
+                stopProgressBar();
+                if (isAutoMode || currentIndex >= currentSectionData.length - 1) {
+                     if(currentIndex >= currentSectionData.length - 1 && isAutoMode) {
+                        stopPlayback();
+                     }
+                } else {
+                    isPlaying = false;
+                    togglePlayUI();
+                }
+                
+                if (!isPlaying) {
+                     const item = currentSectionData[currentIndex];
+                     renderSentence(item.en, item.ja, item.cue); 
+                }
+            }
+        }
+
+        function stopPlayback() {
+            isPlaying = false;
+            if (abortController) {
+                abortController.abort();
+            }
+            if (waitTimeout) {
+                clearTimeout(waitTimeout);
+            }
+            synth.cancel();
+            stopProgressBar();
+            togglePlayUI();
+        }
+
+        function togglePlayUI() {
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                stopIcon.classList.remove('hidden');
+                playText.textContent = '停止';
+                playBtn.classList.replace('bg-blue-600', 'bg-red-500');
+                playBtn.classList.replace('hover:bg-blue-700', 'hover:bg-red-600');
+                lessonSelect.disabled = true;
+                sectionSelect.disabled = true;
+            } else {
+                playIcon.classList.remove('hidden');
+                stopIcon.classList.add('hidden');
+                playText.textContent = '再生開始';
+                playBtn.classList.replace('bg-red-500', 'bg-blue-600');
+                playBtn.classList.replace('hover:bg-red-600', 'hover:bg-blue-700');
+                lessonSelect.disabled = false;
+                sectionSelect.disabled = false;
+            }
+        }
+
+        function startProgressBar(seconds) {
+            timerBarContainer.classList.remove('hidden');
+            timerBar.style.animation = 'none';
+            timerBar.offsetHeight; 
+            timerBar.style.animation = `progress-shrink ${seconds}s linear forwards`;
+        }
+
+        function stopProgressBar() {
+            timerBarContainer.classList.add('hidden');
+            timerBar.style.animation = 'none';
+        }
+
+        modeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'auto') {
+                    waitTimeContainer.style.opacity = '1';
+                    waitTimeSelect.disabled = false;
+                } else {
+                    waitTimeContainer.style.opacity = '0.5';
+                    waitTimeSelect.disabled = true;
+                }
+                stopPlayback();
+            });
+        });
+
+        lessonSelect.addEventListener('change', (e) => {
+            stopPlayback();
+            populateSections(e.target.value);
+        });
+
+        sectionSelect.addEventListener('change', (e) => {
+            stopPlayback();
+            loadSectionData();
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopPlayback();
+            } else {
+                runDrillFlow();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            stopPlayback();
+            if (currentIndex < currentSectionData.length - 1) {
+                currentIndex++;
+                updateDisplayState(true);
+                if(document.querySelector('input[name="play-mode"]:checked').value === 'auto') {
+                     runDrillFlow();
+                } else {
+                     const item = currentSectionData[currentIndex];
+                     renderSentence(item.en, item.ja, "");
+                }
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            stopPlayback();
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateDisplayState(true);
+                const item = currentSectionData[currentIndex];
+                renderSentence(item.en, item.ja, "");
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            synth.cancel();
+        });
+
+        populateLessons();
+    </script>
+</body>
+</html>
