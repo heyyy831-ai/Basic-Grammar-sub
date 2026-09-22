@@ -1365,6 +1365,7 @@
         let currentIndex = 0;
         let abortController = null;
         let waitTimeout = null;
+        let hasPlayedCurrent = false;
 
         function populateVoices() {
             const allVoices = synth.getVoices();
@@ -1521,6 +1522,7 @@
             if (lesson && section && lessonData[lesson][section]) {
                 currentSectionData = lessonData[lesson][section];
                 currentIndex = 0;
+                hasPlayedCurrent = false;
                 updateDisplayState();
             }
         }
@@ -1656,6 +1658,7 @@
                          stopProgressBar();
                          break;
                     } else {
+                        hasPlayedCurrent = true;
                         break; 
                     }
                 }
@@ -1737,17 +1740,20 @@
                     waitTimeContainer.style.opacity = '0.5';
                     waitTimeSelect.disabled = true;
                 }
+                hasPlayedCurrent = false;
                 stopPlayback();
             });
         });
 
         lessonSelect.addEventListener('change', (e) => {
             stopPlayback();
+            hasPlayedCurrent = false;
             populateSections(e.target.value);
         });
 
         sectionSelect.addEventListener('change', (e) => {
             stopPlayback();
+            hasPlayedCurrent = false;
             loadSectionData();
         });
 
@@ -1755,6 +1761,11 @@
             if (isPlaying) {
                 stopPlayback();
             } else {
+                const isAutoMode = document.querySelector('input[name="play-mode"]:checked').value === 'auto';
+                if (!isAutoMode && hasPlayedCurrent && currentIndex < currentSectionData.length - 1) {
+                    currentIndex++;
+                    hasPlayedCurrent = false;
+                }
                 runDrillFlow();
             }
         });
@@ -1762,6 +1773,7 @@
         repeatBtn.addEventListener('click', () => {
             if (currentSectionData.length > 0) {
                 stopPlayback();
+                hasPlayedCurrent = false;
                 // 停止処理を確実に反映させるために少し待ってから再実行
                 setTimeout(() => {
                     runDrillFlow();
@@ -1773,6 +1785,7 @@
             stopPlayback();
             if (currentIndex < currentSectionData.length - 1) {
                 currentIndex++;
+                hasPlayedCurrent = false;
                 updateDisplayState(true);
                 if(document.querySelector('input[name="play-mode"]:checked').value === 'auto') {
                      runDrillFlow();
@@ -1787,6 +1800,7 @@
             stopPlayback();
             if (currentIndex > 0) {
                 currentIndex--;
+                hasPlayedCurrent = false;
                 updateDisplayState(true);
                 const item = currentSectionData[currentIndex];
                 renderSentence(item.en, item.ja, "");
