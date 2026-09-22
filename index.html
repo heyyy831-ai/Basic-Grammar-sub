@@ -37,12 +37,66 @@
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ダークモード用スタイルとスムーズな切り替えアニメーション */
+        body, .bg-white, .bg-gray-50, .bg-gray-100, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-400, .text-blue-900, button, select, #progress-text, #timer-bar-container {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        body.dark-mode {
+            background-color: #111827;
+            color: #f9fafb;
+        }
+        body.dark-mode .bg-white {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        body.dark-mode .bg-gray-50, body.dark-mode .bg-gray-100 {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        body.dark-mode .text-gray-800, body.dark-mode .text-gray-700 {
+            color: #f3f4f6;
+        }
+        body.dark-mode .text-gray-600, body.dark-mode .text-gray-400 {
+            color: #d1d5db;
+        }
+        body.dark-mode .text-blue-900 {
+            color: #93c5fd;
+        }
+        body.dark-mode .border-gray-100, body.dark-mode .border-gray-200, body.dark-mode .border-gray-300, body.dark-mode .border-blue-100 {
+            border-color: #374151;
+        }
+        body.dark-mode select {
+            color: #f9fafb;
+            background-color: #374151;
+        }
+        body.dark-mode button.bg-gray-100 {
+            background-color: #374151;
+            color: #f3f4f6;
+        }
+        body.dark-mode button.bg-gray-100:hover:not(:disabled) {
+            background-color: #4b5563;
+        }
+        body.dark-mode #progress-text {
+            background-color: #4b5563;
+            color: #f3f4f6;
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased min-h-screen flex flex-col">
 
-    <div class="flex-grow max-w-3xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+    <div class="flex-grow max-w-3xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 relative">
         
+        <!-- ダークモード切り替えスイッチ -->
+        <button id="theme-toggle" class="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 z-10" aria-label="Toggle Dark Mode">
+            <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+
         <header class="text-center">
             <h1 class="text-2xl sm:text-3xl font-extrabold text-blue-900 mb-1">サブスティチューションドリル</h1>
             <p class="text-sm sm:text-base text-gray-600">英会話のための基本英文法完全マスター</p>
@@ -130,6 +184,20 @@
             </div>
         </div>
 
+        <!-- センテンス表示エリア -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-10 relative overflow-hidden flex flex-col items-center justify-center min-h-[200px] text-center">
+            <div id="progress-text" class="absolute top-3 left-4 text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+                1 / 1
+            </div>
+            <div id="display-content" class="w-full">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div id="timer-bar-container" class="absolute bottom-0 left-0 w-full h-1.5 bg-gray-100 hidden">
+                <div id="timer-bar" class="h-full bg-blue-500 w-full"></div>
+            </div>
+        </div>
+
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-wrap justify-center items-center gap-2 sm:gap-4">
             <button id="prev-btn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-2 sm:px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 disabled:opacity-40 flex items-center justify-center flex-1 sm:flex-none" disabled>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -165,18 +233,17 @@
             </button>
         </div>
 
-        <div class="bg-white rounded-xl shadow-md border border-blue-100 p-6 sm:p-10 flex-grow flex flex-col justify-center relative overflow-hidden min-h-[250px]">
-            <div id="timer-bar-container" class="absolute top-0 left-0 w-full h-1 bg-gray-100 hidden">
-                <div id="timer-bar" class="h-full bg-blue-500 w-full"></div>
+        <!-- センテンス一覧表示エリア -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 mt-2">
+            <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
+                <h2 class="text-lg font-bold text-gray-700">センテンス一覧</h2>
+                <button id="toggle-ja-btn" class="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 py-1 px-3 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400">
+                    日本語訳を隠す
+                </button>
             </div>
-
-            <div class="absolute top-4 right-4 text-xs font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded-full" id="progress-text">
-                0 / 0
-            </div>
-
-            <div id="display-content" class="text-center w-full flex flex-col items-center justify-center space-y-6">
-                <p class="text-gray-400 text-sm">レッスンとセクションを選択して再生を開始してください。</p>
-            </div>
+            <ul id="sentence-list" class="space-y-3">
+                <!-- Populated by JS -->
+            </ul>
         </div>
     </div>
 
@@ -1357,6 +1424,10 @@
         const timerBarContainer = document.getElementById('timer-bar-container');
         const timerBar = document.getElementById('timer-bar');
 
+        const sentenceList = document.getElementById('sentence-list');
+        const toggleJaBtn = document.getElementById('toggle-ja-btn');
+        let isJaHidden = false;
+
         let synth = window.speechSynthesis;
         let voices = [];
         
@@ -1523,6 +1594,7 @@
                 currentSectionData = lessonData[lesson][section];
                 currentIndex = 0;
                 hasPlayedCurrent = false;
+                renderSentenceList();
                 updateDisplayState();
             }
         }
@@ -1538,7 +1610,59 @@
                 const item = currentSectionData[currentIndex];
                 renderSentence(item.en, item.ja, "");
             }
+            updateListHighlight();
         }
+
+        function renderSentenceList() {
+            sentenceList.innerHTML = '';
+            currentSectionData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = "pb-3 border-b border-gray-100 last:border-b-0 relative";
+                
+                let cueHtml = item.cue ? `<span class="text-red-500 ml-1 font-medium">${item.cue}</span>` : '';
+                
+                li.innerHTML = `
+                    <div class="list-en-text text-gray-800 flex items-start transition-all duration-200">
+                        <span class="list-indicator text-blue-500 font-bold w-4 opacity-0 mr-1 transition-opacity">▶</span>
+                        <span class="text-gray-400 mr-2 text-sm mt-0.5 w-4 text-right shrink-0">${index + 1}.</span>
+                        <div>${item.en} ${cueHtml}</div>
+                    </div>
+                    <div class="list-ja-text text-sm text-gray-600 mt-1 pl-11 ${isJaHidden ? 'hidden' : ''}">${item.ja}</div>
+                `;
+                sentenceList.appendChild(li);
+            });
+        }
+
+        function updateListHighlight() {
+            if (!sentenceList) return;
+            const listItems = sentenceList.querySelectorAll('li');
+            listItems.forEach((li, index) => {
+                const enDiv = li.querySelector('.list-en-text');
+                const indicator = li.querySelector('.list-indicator');
+                if (index === currentIndex) {
+                    enDiv.classList.add('font-bold');
+                    indicator.classList.remove('opacity-0');
+                    indicator.classList.add('opacity-100');
+                } else {
+                    enDiv.classList.remove('font-bold');
+                    indicator.classList.add('opacity-0');
+                    indicator.classList.remove('opacity-100');
+                }
+            });
+        }
+
+        toggleJaBtn.addEventListener('click', () => {
+            isJaHidden = !isJaHidden;
+            toggleJaBtn.textContent = isJaHidden ? '日本語訳を表示' : '日本語訳を隠す';
+            const jaElements = document.querySelectorAll('.list-ja-text');
+            jaElements.forEach(el => {
+                if (isJaHidden) {
+                    el.classList.add('hidden');
+                } else {
+                    el.classList.remove('hidden');
+                }
+            });
+        });
 
         function renderSentence(en, ja, cue) {
             displayContent.innerHTML = `
@@ -1809,6 +1933,28 @@
 
         window.addEventListener('beforeunload', () => {
             synth.cancel();
+        });
+
+        // テーマ（ダークモード/ライトモード）切り替えロジック
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIconSun = document.getElementById('theme-icon-sun');
+        const themeIconMoon = document.getElementById('theme-icon-moon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIconSun.classList.remove('hidden');
+                themeIconMoon.classList.add('hidden');
+                themeToggleBtn.classList.replace('bg-gray-200', 'bg-gray-700');
+                themeToggleBtn.classList.replace('text-gray-700', 'text-gray-200');
+                themeToggleBtn.classList.replace('hover:bg-gray-300', 'hover:bg-gray-600');
+            } else {
+                themeIconSun.classList.add('hidden');
+                themeIconMoon.classList.remove('hidden');
+                themeToggleBtn.classList.replace('bg-gray-700', 'bg-gray-200');
+                themeToggleBtn.classList.replace('text-gray-200', 'text-gray-700');
+                themeToggleBtn.classList.replace('hover:bg-gray-600', 'hover:bg-gray-300');
+            }
         });
 
         populateLessons();
