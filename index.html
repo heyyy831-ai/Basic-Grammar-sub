@@ -1621,7 +1621,10 @@
             sentenceList.innerHTML = '';
             currentSectionData.forEach((item, index) => {
                 const li = document.createElement('li');
-                li.className = "pb-3 border-b border-gray-100 last:border-b-0 relative";
+                li.className = "pb-3 border-b border-gray-100 last:border-b-0 relative cursor-pointer rounded-lg hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400";
+                li.tabIndex = 0;
+                li.setAttribute('role', 'button');
+                li.setAttribute('aria-label', `${index + 1}番のセンテンスを上の窓に表示`);
                 
                 let cueHtml = item.cue ? `<span class="text-red-500 ml-1 font-medium">${item.cue}</span>` : '';
                 
@@ -1633,6 +1636,21 @@
                     </div>
                     <div class="list-ja-text text-sm text-gray-600 mt-1 pl-11 ${isJaHidden ? 'hidden' : ''}">${item.ja}</div>
                 `;
+
+                const showSelectedSentence = () => {
+                    stopPlayback();
+                    currentIndex = index;
+                    hasPlayedCurrent = false;
+                    updateDisplayState(true);
+                };
+
+                li.addEventListener('click', showSelectedSentence);
+                li.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        showSelectedSentence();
+                    }
+                });
                 sentenceList.appendChild(li);
             });
         }
